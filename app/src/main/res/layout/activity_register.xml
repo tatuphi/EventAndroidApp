@@ -17,14 +17,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/shapeinput"
-        android:drawableLeft="@drawable/ic_mail_outline_white_24dp"
+        android:drawableStart="@drawable/ic_mail_outline_white_24dp"
         android:drawablePadding="10dp"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textColor="@color/white"
         android:textColorHighlight="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/input_username"
@@ -32,14 +33,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/shapeinput"
-        android:drawableLeft="@drawable/ic_person_outline_white_24dp"
+        android:drawableStart="@drawable/ic_person_outline_white_24dp"
         android:drawablePadding="10dp"
         android:hint="@string/username"
         android:inputType="textPersonName"
         android:padding="15dp"
         android:textColor="@color/white"
         android:textColorHighlight="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        android:autofillHints="" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -60,7 +62,8 @@
             android:textColorHint="@color/white"
             android:textColorHighlight="@color/white"
             android:inputType="textPassword"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            android:autofillHints="" />
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +85,8 @@
             android:textColorHint="@color/white"
             android:textColorHighlight="@color/white"
             android:inputType="textPassword"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            android:autofillHints="" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +102,9 @@
         android:text="@string/btn_register"
         android:onClick="register"
         android:clickable="true"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:focusable="true"
+        tools:ignore="OnClick" />
 
 </LinearLayout>
 

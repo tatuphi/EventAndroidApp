@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent forgetPassword = new Intent(MainActivity.this, ForgetPassword.class);
         startActivity(forgetPassword);
+    }
+    public void login_with_google(View v)
+    {
+        Intent loginGg = new Intent(MainActivity.this, profile.class);
+        startActivity(loginGg);
     }
 
 }

@@ -68,12 +68,12 @@
         android:id="@+id/txt_loginGoogle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:gravity="center"
         android:buttonTint="@color/white"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        android:onClick="login_with_google"
         android:text="@string/login_with_google"
         android:textColor="#198CE8" />
 

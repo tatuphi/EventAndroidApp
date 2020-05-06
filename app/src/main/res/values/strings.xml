@@ -11,18 +11,39 @@
     <string name="home_second">Home Second</string>
     <string name="menu_home">Menu Home</string>
 
-<!--    hint-->
+    <!--    hint-->
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="password_confirm">Password confirm</string>
-<!--    button-->
+    <string name="birthday">Birthday</string>
+    <string name="gender">Gender</string>
+    <string name="job">Job</string>
+    <string name="description">Description</string>
+    <string name="number_phone">Number phone</string>
+    <string name="full_name">Full name</string>
+    <!--    button-->
     <string name="btn_login">Log in</string>
     <string name="btn_register">Register</string>
     <string name="btn_send">Send</string>
-<!--    textview-->
+    <!--    textview-->
     <string name="create_account">Create account</string>
     <string name="forget_password">Forget password</string>
     <string name="login_with_google">Login with Google</string>
+
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="edit">Edit</string>
+    <string name="info">Info</string>
+    <string name="full_name_user">Tạ Thị Tú Phi</string>
+    <string name="job_user">Student</string>
+    <string name="email_user">tatuphi@gmail.com</string>
+    <string name="birthday_user">22/12/1998</string>
+    <string name="phone_number_user">0334994998</string>
+    <string name="gender_user">Female</string>
+    <string name="description_user">This is my description</string>
+    <string name="edit_info">Edit info</string>
+    <string name="save">Save</string>
+    <string name="todo">TODO</string>
 
 </resources>

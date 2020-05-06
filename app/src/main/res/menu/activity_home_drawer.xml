@@ -2,25 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item android:id="@+id/nav_item_one"
-            android:icon="@drawable/ic_person_outline_white_24dp"
+            android:icon="@mipmap/icons_message"
             android:title="Contact with event" />
         <item android:id="@+id/nav_item_two"
-            android:icon="@drawable/ic_person_outline_white_24dp"
+            android:icon="@mipmap/icons_qrcode"
             android:title="QRCode" />
         <item android:id="@+id/nav_item_three"
-            android:icon="@drawable/ic_person_outline_white_24dp"
+            android:icon="@mipmap/icons_creditcard"
             android:title="Credit Card" />
         <item android:id="@+id/nav_item_four"
-            android:icon="@drawable/ic_person_outline_white_24dp"
+            android:icon="@mipmap/icons_payment"
             android:title="Payment history" />
         <item android:id="@+id/nav_item_five"
-            android:icon="@drawable/ic_settings_white_24dp"
+            android:icon="@mipmap/icons_settings"
             android:title="Privacy setting" />
         <item android:id="@+id/nav_item_six"
-            android:icon="@drawable/ic_lock_outline_white_24dp"
+            android:icon="@mipmap/icons_privacy"
             android:title="Change password" />
         <item android:id="@+id/nav_item_seven"
-            android:icon="@drawable/ic_power_settings_new_white_24dp"
+            android:icon="@mipmap/icons_logout"
             android:title="Logout" />
 
     </group>
