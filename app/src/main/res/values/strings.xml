@@ -41,9 +41,23 @@
     <string name="birthday_user">22/12/1998</string>
     <string name="phone_number_user">0334994998</string>
     <string name="gender_user">Female</string>
-    <string name="description_user">This is my description</string>
+    <string name="description_user">This is my description </string>
     <string name="edit_info">Edit info</string>
     <string name="save">Save</string>
     <string name="todo">TODO</string>
+    <string name="notification">Notification</string>
+    <string name="setting">Setting</string>
+    <string name="payment_history">Payment history</string>
+    <string name="chat_admin">Chat admin</string>
+    <string name="qrcode">QRCode</string>
+    <string name="change_password">Change password</string>
+    <string name="filter">Filter</string>
+    <string name="card_info">Card info</string>
+    <string name="add_card">Add card</string>
+    <string name="bank_account">Bank account</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="noti_content">ABC approved you to take part the Music Festival</string>
 
 </resources>

@@ -8,6 +8,7 @@
     android:orientation="vertical"
     android:gravity="bottom"
     android:padding="20dp"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
 
@@ -17,14 +18,15 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/shapeinput"
-        android:drawableLeft="@drawable/ic_mail_outline_white_24dp"
+        android:drawableStart="@drawable/ic_mail_outline_white_24dp"
         android:drawablePadding="10dp"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textColor="@color/white"
         android:textColorHighlight="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        android:autofillHints="" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +48,8 @@
             android:textColorHint="@color/white"
             android:textColorHighlight="@color/white"
             android:inputType="textPassword"
-            android:padding="15dp"/>
+            android:padding="15dp"
+            android:autofillHints="" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +65,8 @@
         android:textAllCaps="false"
         android:onClick="login"
         android:clickable="true"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/txt_loginGoogle"
@@ -75,7 +79,8 @@
         android:gravity="center_horizontal"
         android:onClick="login_with_google"
         android:text="@string/login_with_google"
-        android:textColor="#198CE8" />
+        android:textColor="#198CE8"
+        android:focusable="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,22 +101,24 @@
             android:clickable="true"
             android:onClick="create_account"
             android:textColor="@color/white"
-            tools:ignore="OnClick" />
+            tools:ignore="OnClick"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/txt_forgetPassword"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:drawablePadding="6dp"
-            android:gravity="right"
+            android:gravity="end"
             android:padding="4dp"
             android:text="@string/forget_password"
             android:onClick="forget_password"
             android:clickable="true"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:focusable="true" />
 
     </LinearLayout>
 
