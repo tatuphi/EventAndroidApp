@@ -9,7 +9,7 @@
     android:gravity="bottom"
     android:padding="20dp"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context="com.example.myapplication.activity.MainActivity">
 
 
     <EditText
@@ -63,10 +63,7 @@
         android:shadowColor="@android:color/transparent"
         android:text="@string/btn_login"
         android:textAllCaps="false"
-        android:onClick="login"
-        android:clickable="true"
-        android:textColor="@color/white"
-        android:focusable="true" />
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/txt_loginGoogle"
@@ -74,10 +71,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
         android:buttonTint="@color/white"
-        android:clickable="true"
-        android:gravity="center_horizontal"
-        android:onClick="login_with_google"
         android:text="@string/login_with_google"
         android:textColor="#198CE8"
         android:focusable="true" />
@@ -98,10 +93,7 @@
             android:layout_marginBottom="10dp"
             android:buttonTint="@color/white"
             android:text="@string/create_account"
-            android:clickable="true"
-            android:onClick="create_account"
             android:textColor="@color/white"
-            tools:ignore="OnClick"
             android:focusable="true" />
 
         <TextView
@@ -115,8 +107,6 @@
             android:gravity="end"
             android:padding="4dp"
             android:text="@string/forget_password"
-            android:onClick="forget_password"
-            android:clickable="true"
             android:textColor="@color/white"
             android:focusable="true" />
 

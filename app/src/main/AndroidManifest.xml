@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="My Application"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ChangePassword"></activity>
-        <activity android:name=".settings" />
-        <activity android:name=".Chat" />
-        <activity android:name=".Notification" />
-        <activity android:name=".EditProfile" />
-        <activity android:name=".ForgetPassword" />
-        <activity android:name=".Register" />
-        <activity android:name=".Login" />
-        <activity android:name=".profile" />
+        <activity android:name=".activity.ChangePassword"></activity>
+        <activity android:name=".activity.settings" />
+        <activity android:name=".activity.Chat" />
+        <activity android:name=".activity.Notification" />
+        <activity android:name=".activity.EditProfile" />
+        <activity android:name=".activity.ForgetPassword" />
+        <activity android:name=".activity.Register" />
+        <activity android:name=".activity.Login" />
+        <activity android:name=".activity.profile" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
