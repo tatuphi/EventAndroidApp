@@ -96,9 +96,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_centerInParent="true"
-                android:textSize="30sp"
-                android:drawableEnd="@mipmap/icons_checked"
-                android:drawablePadding="5dp"/>
+                android:textSize="30sp" />
 
         </RelativeLayout>
 
