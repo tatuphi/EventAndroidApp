@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">Home </string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -54,6 +54,7 @@
     <string name="payment_history">Payment history</string>
     <string name="chat_admin">Chat admin</string>
     <string name="qrcode">QRCode</string>
+    <string name="scan_qrcode">Scan QRCode</string>
     <string name="change_password">Change password</string>
     <string name="filter">Filter</string>
     <string name="card_info">Card info</string>

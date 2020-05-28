@@ -15,11 +15,14 @@
         android:id="@+id/profile_image"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:onClick="get_profile"
+        android:clickable="true"
         android:src="@mipmap/avatar"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp" />
 
     <TextView
+        android:id="@+id/profile_fullname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
@@ -27,6 +30,8 @@
         android:text="@string/full_name_user"
         android:textSize="25sp"
         android:textStyle="bold"
+        android:onClick="get_profile"
+        android:clickable="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </LinearLayout>

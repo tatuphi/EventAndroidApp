@@ -21,8 +21,9 @@ allprojects {
     repositories {
         google()
         jcenter()
-//        otp
+//        otp & qr code
         maven { url "https://jitpack.io"}
+//        codeinput line
         maven { url "http://dl.bintray.com/glomadrian/maven" }
 
 

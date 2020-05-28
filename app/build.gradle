@@ -51,6 +51,10 @@ dependencies {
 
 //    otp
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.0'
+//    qr code scan
+    implementation 'com.github.blikoon:QRCodeScanner:0.1.2'
+//    qr code generator
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
 
 
     //noinspection GradleCompatible

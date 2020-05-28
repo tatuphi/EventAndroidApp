@@ -7,68 +7,10 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.myapplication.activity.Login">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/black">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/toolbar_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="30dp"
-                    android:gravity="center"
-                    android:text="@string/edit"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    android:onClick="edit_profile"
-                    android:clickable="true"
-                    android:textStyle="bold"
-                    tools:ignore="OnClick"
-                    android:focusable="true" />
-
-                <ImageButton
-                    android:id="@+id/toolbar_button"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="-30dp"
-                    android:foregroundGravity="center"
-                    android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
-                    android:contentDescription="@string/todo" />
-
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="@string/info"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-        </com.google.android.material.appbar.MaterialToolbar>
-
-
-
-    </com.google.android.material.appbar.AppBarLayout>
 <ScrollView
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:fillViewport="true"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:fillViewport="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
