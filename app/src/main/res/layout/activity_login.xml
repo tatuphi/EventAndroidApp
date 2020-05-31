@@ -11,7 +11,6 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.myapplication.activity.MainActivity">
 
-
     <EditText
         android:id="@+id/input_email"
         android:layout_width="match_parent"

@@ -1,26 +1,36 @@
 package com.example.myapplication.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
 public class UserResponse {
     @SerializedName("avatar")
+    @Expose
     private String avatar;
     @SerializedName("isReported")
     private Boolean isReported;
     @SerializedName("isActive")
     private Boolean isActive;
-    @SerializedName("createAt")
-    private Date createAt;
     @SerializedName("_id")
     private Object _id;
     @SerializedName("email")
     private String email;
     @SerializedName("fullName")
     private String fullName;
-    @SerializedName("dateCreate")
-    private Date dateCreate;
+    @SerializedName("job")
+    private String job;
+    @SerializedName("address")
+    private String address;
+    @SerializedName("discription")
+    private String discription;
+    @SerializedName("phone")
+    private String phone;
+    @SerializedName("gender")
+    private String gender;
+    @SerializedName("birthday")
+    private Date birthday;
 
     public String getAvatar(){
         return avatar;
@@ -40,13 +50,6 @@ public class UserResponse {
     public void setIsActive(Boolean isActive){
         this.isActive = isActive;
     }
-    public Date getCreateAt(){
-        return createAt;
-    }
-    public void setCreateAt(Date createAt)
-    {
-        this.createAt = createAt;
-    }
     public Object get_id(){
         return _id;
     }
@@ -65,12 +68,43 @@ public class UserResponse {
     public void setFullName(String fullName){
         this.fullName = fullName;
     }
-    public Date getDateCreate(){
-        return dateCreate;
+    public String getJob(){
+        return job;
     }
-    public void setDateCreate(Date createAt)
-    {
-        this.dateCreate = dateCreate;
+    public void setJob(String job){
+        this.job = job;
     }
+    public String getAddress(){
+        return address;
+    }
+    public void setAddress(String address){
+        this.address = address;
+    }
+    public String getDescription(){
+        return discription;
+    }
+    public void setDescription(String discription){
+        this.discription = discription;
+    }
+    public String getPhone(){
+        return phone;
+    }
+    public void setPhone(String phone){
+        this.phone = phone;
+    }
+    public String getGender(){
+        return gender;
+    }
+    public void setGender(String gender){
+        this.gender = gender;
+    }
+
+    public Date getBirthday(){
+        return birthday;
+    }
+    public void setBirthday(Date birthday){
+        this.birthday = birthday;
+    }
+
 
 }

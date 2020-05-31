@@ -9,7 +9,7 @@
     android:gravity="bottom"
     android:padding="20dp"
     android:fitsSystemWindows="true"
-    tools:context="com.example.myapplication.activity.MainActivity">
+    tools:context="com.example.myapplication.activity.Register">
 
 
     <EditText
@@ -76,7 +76,7 @@
         app:passwordToggleEnabled="true">
 
         <EditText
-            android:id="@+id/input_password2"
+            android:id="@+id/input_confirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -102,9 +102,6 @@
         android:textAllCaps="false"
         android:text="@string/btn_register"
         android:textColor="@color/white"
-        android:onClick="register"
-        android:clickable="true"
-        tools:ignore="OnClick"
         android:focusable="true" />
 
 </LinearLayout>

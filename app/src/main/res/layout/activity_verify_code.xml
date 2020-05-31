@@ -27,38 +27,47 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-light"
-        android:text="Please type the verification code sent to "
+        android:text="Please type the verification code sent to"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txt_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-light"
-        android:text="***uphi@gmail.com"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
-    <com.mukesh.OtpView
-        android:id="@+id/otp_view"
-        android:layout_width="wrap_content"
+    <!--    <com.mukesh.OtpView-->
+<!--        android:id="@+id/otp_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        android:inputType="number"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:itemBackground="@color/inputColor"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        app:itemCount="6"-->
+<!--        app:viewType="line"-->
+<!--        app:lineColor="@color/inputColor" />-->
+
+    <com.github.glomadrian.codeinputlib.CodeInput
+        android:id="@+id/input_code"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:inputType="number"
         android:layout_gravity="center"
-        android:itemBackground="@color/inputColor"
-        android:textColor="@android:color/white"
-        app:itemCount="6"
-        app:viewType="line"
-        app:lineColor="@color/inputColor" />
+        app:underline_color="#457ad1"
+        app:underline_selected_color="#9e1ace"
+        app:text_color="#b12eff"
+        android:layout_marginTop="100dp" />
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_margin="10dp"
         android:background="@drawable/shapebutton"
         android:focusable="true"

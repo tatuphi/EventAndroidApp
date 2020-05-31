@@ -30,7 +30,7 @@
                 app:civ_border_width="2dp" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txt_fullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -59,7 +59,6 @@
             android:layout_marginStart="42dp"
             android:drawablePadding="10dp"
             android:inputType="textEmailAddress"
-            android:text="@string/email_user"
             android:textColor="@color/white" />
         <TextView
             android:layout_width="match_parent"
@@ -78,7 +77,6 @@
             android:layout_marginStart="42dp"
             android:drawablePadding="10dp"
             android:inputType="date"
-            android:text="@string/birthday_user"
             android:textColor="@color/white" />
         <TextView
             android:layout_width="match_parent"
@@ -97,7 +95,6 @@
             android:layout_marginStart="42dp"
             android:drawablePadding="10dp"
             android:inputType="phone"
-            android:text="@string/phone_number_user"
             android:textColor="@color/white" />
         <TextView
             android:layout_width="match_parent"
@@ -115,7 +112,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="42dp"
             android:drawablePadding="10dp"
-            android:text="@string/gender_user"
             android:textAllCaps="true"
             android:textColor="@color/white" />
         <TextView
@@ -134,7 +130,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="42dp"
             android:drawablePadding="10dp"
-            android:text="@string/job_user"
             android:textColor="@color/white" />
         <TextView
             android:layout_width="match_parent"
@@ -147,11 +142,11 @@
             android:drawablePadding="5dp"/>
 
         <TextView
+            android:id="@+id/txt_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:drawablePadding="10dp"
-            android:text="@string/description_user"
             android:textColor="@color/white" />
 
     </LinearLayout>
