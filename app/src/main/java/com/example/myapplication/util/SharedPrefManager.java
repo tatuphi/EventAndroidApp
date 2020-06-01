@@ -10,6 +10,7 @@ public class SharedPrefManager {
     public static final String SP_EMAIL = "spEmail";
 
     public static final String SP_LOGIN = "spLogin";
+    public static final String SP_URLAVATAR = "spUrlImage";
 
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
@@ -34,12 +35,16 @@ public class SharedPrefManager {
         spEditor.commit();
     }
 
-    public String getSPNama(){
+    public String getSPName(){
         return sp.getString(SP_NAME, "");
     }
 
     public String getSPEmail(){
         return sp.getString(SP_EMAIL, "");
+    }
+
+    public String getSPUrlavatar(){
+        return sp.getString(SP_URLAVATAR,"");
     }
 
     public Boolean getSPLogin(){

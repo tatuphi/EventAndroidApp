@@ -64,8 +64,10 @@ dependencies {
 
 //    circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-// 
+//    code input
     implementation 'com.github.glomadrian:CodeInput:1.1@aar'
+//    picasso image
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.1.0'
