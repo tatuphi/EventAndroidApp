@@ -65,4 +65,7 @@
     <string name="confirm_password">Confirm password</string>
     <string name="noti_content">ABC approved you to take part the Music Festival</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
