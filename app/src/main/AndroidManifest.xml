@@ -4,7 +4,7 @@
     package="com.example.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,31 +17,52 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
-        <activity   android:name=".activity.QRCode"
-                    android:label="@string/qrcode"/>
-        <activity   android:name=".activity.ScanQRCode"
-                    android:label="@string/scan_qrcode"/>
-        <activity android:name=".activity.VerifyCode" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activity.LastForgetPassword" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity   android:name=".activity.ChangePassword"
-                    android:label="@string/change_password"/>
-        <activity   android:name=".activity.settings"
-                    android:label="@string/setting"/>
-        <activity   android:name=".activity.Chat"
-                    android:label="@string/chat_admin"/>
+        <activity android:name=".activity.DetailEvent"></activity>
+        <activity
+            android:name=".activity.QRCode"
+            android:label="@string/qrcode" />
+        <activity
+            android:name=".activity.ScanQRCode"
+            android:label="@string/scan_qrcode" />
+        <activity
+            android:name=".activity.VerifyCode"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.LastForgetPassword"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.ChangePassword"
+            android:label="@string/change_password" />
+        <activity
+            android:name=".activity.settings"
+            android:label="@string/setting" />
+        <activity
+            android:name=".activity.Chat"
+            android:label="@string/chat_admin" />
         <activity android:name=".activity.Notification" />
-        <activity   android:name=".activity.EditProfile"
-                    android:label="@string/edit_info"
-                    android:icon="@drawable/ic_keyboard_arrow_left_white_24dp"/>
-        <activity android:name=".activity.ForgetPassword" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activity.Register" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activity.Login" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity   android:name=".activity.profile"
-                    android:label="@string/info"/>
+        <activity
+            android:name=".activity.EditProfile"
+            android:icon="@drawable/ic_keyboard_arrow_left_white_24dp"
+            android:label="@string/edit_info" />
+        <activity
+            android:name=".activity.ForgetPassword"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.Register"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.Login"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.profile"
+            android:label="@string/info" />
         <activity
             android:name=".activity.HomeActivity"
-            android:label="@string/title_activity_home" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.MainActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

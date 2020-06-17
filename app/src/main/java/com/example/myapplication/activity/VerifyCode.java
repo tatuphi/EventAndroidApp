@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.model.BaseResult;
 import com.example.myapplication.model.ResultResponse;
 import com.example.myapplication.util.Constants;
 import com.example.myapplication.util.Validate;
@@ -71,9 +72,9 @@ public class VerifyCode extends AppCompatActivity {
         Character[] codeArr = code.getCode();
         String strOfInts = Arrays.toString(codeArr).replaceAll("\\[|\\]|,|\\s", "");
         Log.e("test","value of code is: " + strOfInts);
-        mApiService.getverifyToken(strOfInts).enqueue(new Callback<ResultResponse>() {
+        mApiService.getverifyToken(strOfInts).enqueue(new Callback<BaseResult>() {
             @Override
-            public void onResponse(Call<ResultResponse> call, Response<ResultResponse> response) {
+            public void onResponse(Call<BaseResult> call, Response<BaseResult> response) {
                 if(response.isSuccessful())
                 {
                     Toast.makeText(mContext, "Verified successfully", Toast.LENGTH_LONG).show();
@@ -92,7 +93,7 @@ public class VerifyCode extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResultResponse> call, Throwable t) {
+            public void onFailure(Call<BaseResult> call, Throwable t) {
                 Log.e("debug", "onFailure: ERROR > " + t.toString());
             }
         });
