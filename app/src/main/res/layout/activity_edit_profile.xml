@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:fitsSystemWindows="true"
     tools:context="com.example.myapplication.activity.profile">
     <ScrollView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
+
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <LinearLayout
@@ -20,8 +23,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:text="@string/full_name"
             android:textColor="@color/white"/>
@@ -29,8 +30,6 @@
             android:id="@+id/input_fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:textColor="@color/white"
             android:ems="10"
             android:inputType="textPersonName" />
@@ -38,8 +37,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:text="@string/email"
             android:textColor="@color/white"/>
@@ -47,16 +44,12 @@
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:textColor="@color/white"
             android:ems="10"
             android:inputType="textEmailAddress" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:text="@string/number_phone"
             android:textColor="@color/white"/>
@@ -64,8 +57,6 @@
             android:id="@+id/input_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:textColor="@color/white"
             android:ems="10"
             android:inputType="phone"/>
@@ -73,8 +64,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:text="@string/gender"
             android:textColor="@color/white"/>
@@ -82,15 +71,11 @@
             android:id="@+id/input_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:textColor="@color/white"
             android:ems="10"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:text="@string/birthday"
             android:textColor="@color/white"/>
@@ -98,15 +83,11 @@
             android:id="@+id/input_birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:textColor="@color/white"
             android:ems="10" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:text="@string/description"
@@ -116,8 +97,6 @@
             android:id="@+id/input_description"
             android:layout_width="match_parent"
             android:layout_height="85dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:background="@drawable/shapeinput"
             android:inputType="textMultiLine"
             android:padding="15dp"

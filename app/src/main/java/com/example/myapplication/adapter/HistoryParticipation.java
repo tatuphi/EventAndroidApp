@@ -1,7 +1,5 @@
 package com.example.myapplication.adapter;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.ListAllEventResponse;
+//import com.example.myapplication.model.ListAllEventResponse;
+import com.example.myapplication.model.ListEvent.Result;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,10 +20,10 @@ import butterknife.ButterKnife;
 
 
 public class HistoryParticipation extends RecyclerView.Adapter<HistoryParticipation.HistoryParticipationHolder> {
-    List<ListAllEventResponse> listAllEventResponses;
-    Context mContext;
+    List<Result> listAllEventResponses;
+    String price;
 
-    public HistoryParticipation( List<ListAllEventResponse> allEventList){
+    public HistoryParticipation( List<Result> allEventList){
         listAllEventResponses = allEventList;
     }
 
@@ -36,14 +35,20 @@ public class HistoryParticipation extends RecyclerView.Adapter<HistoryParticipat
 
     @Override
     public void onBindViewHolder(HistoryParticipationHolder holder, int position) {
-         ListAllEventResponse listAllEventitem = listAllEventResponses.get(position);
+         Result listAllEventitem = listAllEventResponses.get(position);
+         if (listAllEventitem.getIsSellTicket()==true){
+             price = listAllEventitem.getTicket().getPrice().toString();
+         }
+         else {
+             price = "FREE";
+         }
 
 //        address, price,
         Picasso.get().load(listAllEventitem.getBannerUrl()).into(holder.imageView);
 
         holder.txt_eventName.setText(listAllEventitem.getName());
-        holder.txt_address.setText("227 Nguyen Van Cu Street, District 5");
-        holder.txt_price.setText("Free");
+        holder.txt_address.setText(listAllEventitem.getSession().get(0).getAddress().getLocation());
+        holder.txt_price.setText(price);
         holder.txt_category.setText(listAllEventitem.getEventCategory().getName());
         holder.txt_time.setText("12:00 AM");
 

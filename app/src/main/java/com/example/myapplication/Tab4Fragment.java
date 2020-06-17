@@ -3,62 +3,78 @@ package com.example.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.myapplication.adapter.HistoryParticipation;
+//import com.example.myapplication.model.BaseListAllRespone;
+//import com.example.myapplication.model.ListAllEventResponse;
+import com.example.myapplication.model.ListEvent.Example;
+import com.example.myapplication.model.ListEvent.Result;
+import com.example.myapplication.util.api.BaseApiService;
+import com.example.myapplication.util.api.UtilsApi;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Tab4Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Tab4Fragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public Tab4Fragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Tab4Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Tab4Fragment newInstance(String param1, String param2) {
-        Tab4Fragment fragment = new Tab4Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    BaseApiService mApiService;
+    List<Example> listSelfEventResponses ;
+    HistoryParticipation historyParticipationAdapter;
+    public Tab4Fragment() {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //        Initial
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab4, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tab4, container, false);
+        mApiService = UtilsApi.getAPIService();
+
+        listSelfEventResponses = new ArrayList<>();
+        // 1. get a reference to recyclerView
+        RecyclerView rvListSelf = (RecyclerView) rootView.findViewById(R.id.rvListSelf);
+
+        // 2. set layoutManger
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        rvListSelf.setLayoutManager(mLayoutManager);
+        // this is data for recycler view
+        mApiService.get_HistoryCreate().enqueue(new Callback<Example>() {
+            @Override
+            public void onResponse(Call<Example> call, Response<Example> response) {
+                if(response.isSuccessful()){
+                    final List<Result> listSelfEventItems = response.body().getResult();
+                    rvListSelf.setAdapter(new HistoryParticipation(listSelfEventItems));
+                    rvListSelf.setItemAnimator(new DefaultItemAnimator());
+                }
+                else {
+                    try {
+                        JSONObject jsonError = new JSONObject(response.errorBody().string());
+                        Log.e("debug", "onFailure: ERROR 600 > " + jsonError.getJSONObject("error").getString("message") );
+                        Toast.makeText(getActivity(), jsonError.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Example> call, Throwable t) {
+
+            }
+        });
+        return rootView;
     }
 }
