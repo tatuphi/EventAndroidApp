@@ -16,6 +16,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
+//note: example class in different folder will be different
 public interface BaseApiService {
     @FormUrlEncoded
     @POST("login")
@@ -116,4 +117,10 @@ public interface BaseApiService {
     @GET("getListNotification")
     Call<com.example.myapplication.model.Notification.Example> getListNotification();
 
+//    setReadNotification
+    @POST("setReadNotification")
+    Call<ResponseBody> setReadNotification(@Field("notificationId") String notificationId);
+//    setDeleteNotification
+    @POST("setDeleteNotification")
+    Call<ResponseBody> setDeleteNotification (@Field("notificationId") String notificationId);
 }

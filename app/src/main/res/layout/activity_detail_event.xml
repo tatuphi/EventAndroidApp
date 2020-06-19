@@ -11,14 +11,14 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:fillViewport="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:orientation="vertical"
-            android:background="@color/black"
-            >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        android:background="@color/black"
+        >
     <ImageView
         android:id="@+id/img_banner"
         android:layout_width="match_parent"
@@ -53,13 +53,18 @@
         android:layout_height="1dp"
         android:outlineAmbientShadowColor="@color/white"
         android:background="?android:attr/listDivider" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvListDate"
-        android:scrollbars="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-        </LinearLayout>
-        </ScrollView>
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    <include
+        layout="@layout/fragment_detail_session"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

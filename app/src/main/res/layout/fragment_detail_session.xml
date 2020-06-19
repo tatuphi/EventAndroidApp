@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@mipmap/icons_people"
+        android:drawablePadding="10dp"
         android:drawableTint="@color/white"
         android:textColor="@color/white"
         />
@@ -21,25 +22,51 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:drawableLeft="@mipmap/icons_address"
+        android:drawablePadding="10dp"
         android:drawableTint="@color/white"
         />
-    <ImageView
-        android:id="@+id/roomMap"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@color/black"/>
+<!--    <ImageView-->
+<!--        android:id="@+id/googleMap"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:background="@color/black"/>-->
+<!--    <ImageView-->
+<!--        android:id="@+id/roomMap"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:background="@color/black"/>-->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Schedule Time"
         android:drawableLeft="@drawable/ic_access_time_white_24dp"
+        android:drawablePadding="10dp"
         android:textColor="@color/white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSchedules"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Related files"
         android:textColor="@color/white"
         android:drawableLeft="@mipmap/icons_file"
+        android:drawablePadding="10dp"
         android:drawableTint="@color/white" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFiles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 </LinearLayout>

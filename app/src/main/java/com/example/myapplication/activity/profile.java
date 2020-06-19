@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.example.myapplication.R;
 import com.example.myapplication.model.BaseUser;
+import com.example.myapplication.model.ListEvent.User;
 import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;
 import com.squareup.picasso.Picasso;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,14 +71,24 @@ public class profile extends AppCompatActivity {
             public void onResponse(Call<BaseUser> call, Response<BaseUser> response) {
                 if (response.code()==200)
                 {
-                    urlImage = response.body().getResult().getAvatar();
-                    fullname.setText(response.body().getResult().getFullName());
-                    email.setText(response.body().getResult().getEmail());
-//                    birthday.setText(response.body().getResult().getBirthday().toString());
-//                    numberphone.setText(response.body().getResult().getPhone());
-//                    description.setText(response.body().getResult().getDescription());
-//                    gender.setText(response.body().getResult().getGender());
-//                    job.setText(response.body().getResult().getJob());
+                    User userInfo = response.body().getResult();
+                    urlImage = userInfo.getAvatar();
+                    fullname.setText(userInfo.getFullName());
+                    email.setText(userInfo.getEmail());
+                    if (userInfo.getBirthday()==null)
+                    {
+                        birthday.setText("");
+                    }
+                    else
+                    {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        Date birthDay = userInfo.getBirthday();
+                        birthday.setText(dateFormat.format(birthDay).toString());
+                    }
+                    numberphone.setText(userInfo.getPhone());
+                    description.setText(userInfo.getDiscription());
+                    gender.setText(userInfo.getGender());
+                    job.setText(userInfo.getJob());
 
                     Picasso.get().load(urlImage).into(image);
 //                    Picasso.get().load(urlImage)

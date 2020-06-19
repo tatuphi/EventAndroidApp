@@ -17,7 +17,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
-        <activity android:name=".activity.DetailEvent"></activity>
+        <activity android:name=".activity.Comments"></activity>
+        <activity
+            android:name=".activity.DetailEvent"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.QRCode"
             android:label="@string/qrcode" />
@@ -39,7 +42,9 @@
         <activity
             android:name=".activity.Chat"
             android:label="@string/chat_admin" />
-        <activity android:name=".activity.Notification" />
+        <activity
+            android:name=".activity.Notification"
+            android:label="Notification" />
         <activity
             android:name=".activity.EditProfile"
             android:icon="@drawable/ic_keyboard_arrow_left_white_24dp"

@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -27,7 +26,6 @@ import com.example.myapplication.util.api.UtilsApi;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -46,6 +44,7 @@ public class Tab1Fragment extends Fragment {
 //        Initial
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tab1, container, false);
+//        layout item date event
         mApiService = UtilsApi.getAPIService();
 //        listAllEventResponses = new ArrayList<>();
         // 1. get a reference to recyclerView
