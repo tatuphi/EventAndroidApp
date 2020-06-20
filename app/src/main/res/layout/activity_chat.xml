@@ -6,5 +6,4 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.myapplication.activity.HomeActivity">
 
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

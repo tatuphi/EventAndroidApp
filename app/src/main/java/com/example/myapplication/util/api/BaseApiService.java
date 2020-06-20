@@ -86,7 +86,7 @@ public interface BaseApiService {
     Call<BaseResult> getverifyToken(@Query("token") String token);
 //    get list all event participate
     @GET("user/get_history_take_part_in")
-    Call<Example> getHistoryTakePartIn (@Query("categoryEventId") String categoryEventId,
+    Call<Example> getHistoryTakePartIn (            @Query("categoryEventId") String categoryEventId,
                                                     @Query("startDate") Date startDate,
                                                     @Query("endDate") Date endDate,
                                                     @Query("txtSearch") String txtSearch,
@@ -99,13 +99,13 @@ public interface BaseApiService {
     @GET("user/historyCreate")
     Call<Example> get_HistoryCreate();
     @GET("user/historyCreate")
-    Call<Example> getHistoryCreate (@Query("categoryEventId") String categoryEventId,
-                                               @Query("startDate") Date startDate,
-                                               @Query("endDate") Date endDate,
-                                               @Query("txtSearch") String txtSearch,
-                                               @Query("pageNumber") Number pageNumber,
-                                               @Query("numberRecord") Number numberRecord,
-                                               @Query("status") String status);
+    Call<Example> getHistoryCreate (   @Query("categoryEventId") String categoryEventId,
+                                       @Query("startDate") Date startDate,
+                                       @Query("endDate") Date endDate,
+                                       @Query("txtSearch") String txtSearch,
+                                       @Query("pageNumber") Number pageNumber,
+                                       @Query("numberRecord") Number numberRecord,
+                                       @Query("status") String status);
     @GET("get_event_inf")
     Call<com.example.myapplication.model.DetailEvent.Example> get_event_inf(
             @Query("eventId") String eventId);
@@ -123,4 +123,11 @@ public interface BaseApiService {
 //    setDeleteNotification
     @POST("setDeleteNotification")
     Call<ResponseBody> setDeleteNotification (@Field("notificationId") String notificationId);
+//    get list comment
+    @GET("comment/get_list")
+    Call<com.example.myapplication.model.Comment.Example> get_list_comment(@Query("eventId") String eventId);
+//    post comment
+    @POST("comment/save")
+    Call<ResponseBody> saveComment(     @Field("eventId") String eventId,
+                                        @Field("content") String content);
 }
