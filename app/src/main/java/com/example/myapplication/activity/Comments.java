@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -40,6 +41,7 @@ import retrofit2.Response;
 public class Comments extends AppCompatActivity {
     @BindView(R.id.rvListComment) RecyclerView rvListComment;
     @BindView(R.id.input_comment) EditText input_comment;
+    @BindView(R.id.btn_sendComment) ImageButton btn_sendComment;
 
     String eventName, eventId;
     Context mContext;
@@ -65,21 +67,13 @@ public class Comments extends AppCompatActivity {
         rvListComment.setLayoutManager(new LinearLayoutManager(this));
         rvListComment.setItemAnimator(new DefaultItemAnimator());
         getComments();
-        input_comment.setOnTouchListener(new View.OnTouchListener(){
+        btn_sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
-
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if(event.getRawX() >= (input_comment.getRight() - input_comment.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        postComment();
-                        return true;
-                    }
+            public void onClick(View v) {
+                if (mValidate.validate(input_comment))
+                {
+                    postComment();
                 }
-                return false;
             }
         });
     }
@@ -107,6 +101,7 @@ public class Comments extends AppCompatActivity {
                 if (response.isSuccessful()){
                     try {
                         JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                        input_comment.setText("");
                         Toast.makeText(mContext, "Commented Successfully", Toast.LENGTH_SHORT).show();
                         getComments();
                     } catch (JSONException e) {

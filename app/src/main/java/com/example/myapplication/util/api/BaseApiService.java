@@ -118,15 +118,18 @@ public interface BaseApiService {
     Call<com.example.myapplication.model.Notification.Example> getListNotification();
 
 //    setReadNotification
+    @FormUrlEncoded
     @POST("setReadNotification")
     Call<ResponseBody> setReadNotification(@Field("notificationId") String notificationId);
 //    setDeleteNotification
+    @FormUrlEncoded
     @POST("setDeleteNotification")
     Call<ResponseBody> setDeleteNotification (@Field("notificationId") String notificationId);
 //    get list comment
     @GET("comment/get_list")
     Call<com.example.myapplication.model.Comment.Example> get_list_comment(@Query("eventId") String eventId);
 //    post comment
+    @FormUrlEncoded
     @POST("comment/save")
     Call<ResponseBody> saveComment(     @Field("eventId") String eventId,
                                         @Field("content") String content);
