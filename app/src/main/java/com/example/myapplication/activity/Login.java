@@ -100,11 +100,11 @@ public class Login extends AppCompatActivity {
             }
         });
 
-//        if (sharedPrefManager.getSPLogin()==true){
-//            Intent home = new Intent(Login.this, HomeActivity.class);
-//            startActivity(home);
-//            finish();
-//        }
+        if (sharedPrefManager.getSPLogin()==true){
+            Intent home = new Intent(Login.this, HomeActivity.class);
+            startActivity(home);
+            finish();
+        }
     }
 
     private void login(){
@@ -116,7 +116,7 @@ public class Login extends AppCompatActivity {
                             try {
                                     JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                     Toast.makeText(mContext, "Logined", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(mContext, HomeActivity.class));
+
 
                                     String email = jsonRESULTS.getJSONObject("result").getString("email");
                                     String fullname = jsonRESULTS.getJSONObject("result").getString("fullName");
@@ -126,7 +126,9 @@ public class Login extends AppCompatActivity {
                                     sharedPrefManager.saveSPString(SharedPrefManager.SP_URLAVATAR, urlImage);
                                     // Shared Pref session login
                                     sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_LOGIN, true);
-                                    finish();
+                                Log.e("debug", "onFailure: sharepreferences > " + sharedPrefManager.getSPLogin() );
+                                startActivity(new Intent(mContext, HomeActivity.class));
+                                finish();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

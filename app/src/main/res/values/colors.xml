@@ -7,4 +7,5 @@
 <!--    <color name="black">#101010</color>-->
     <color name="black">#111111</color>
     <color name="inputColor">#c2c2c2</color>
+    <color name="shadowColor">#272727</color>
 </resources>

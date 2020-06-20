@@ -46,7 +46,7 @@ public class DetailEvent extends AppCompatActivity {
     @BindView(R.id.rvListDate) RecyclerView rvListDate;
 //    bindview session detail
     @BindView(R.id.txt_joinNumber) TextView txt_joinNumber;
-    @BindView(R.id.txt_address) TextView txt_address;
+    @BindView(R.id.txt_address1) TextView txt_address;
 //    @BindView(R.id.googleMap) ImageView googleMap;
 //    @BindView(R.id.roomMap) ImageView roomMap;
 //    recyclerview
@@ -102,13 +102,25 @@ public class DetailEvent extends AppCompatActivity {
                     txt_address.setText(dateItems.get(0).getAddress().getLocation());
                     rvSchedules.setAdapter(new TimeAdapter(mContext,dateItems.get(0).getDetail()));
                     rvFiles.setAdapter(new FileAdapter(mContext, dateItems.get(0).getDocuments()));
+
+                    //        comment click
+                    txt_comment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent cmtScreen = new Intent(mContext, Comments.class);
+                            cmtScreen.putExtra(Constants.KEY_EVENTID, event.getId());
+                            cmtScreen.putExtra(Constants.KEY_EVENTNAME, event.getName());
+                            startActivity(cmtScreen);
+                        }
+                    });
 //                    onlick item session date
                     rvListDate.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
                             Session sessionItem = dateItems.get(position);
                             txt_joinNumber.setText(sessionItem.getJoinNumber().toString() + " people particated");
-                            txt_address.setText(sessionItem.getAddress().getLocation());
+
+//                            txt_address.setText(sessionItem.getAddress().getLocation());
                             List<Detail> detailItems = sessionItem.getDetail();
                             rvSchedules.setAdapter(new TimeAdapter(mContext,detailItems));
                             List<Document> documentItems = sessionItem.getDocuments();

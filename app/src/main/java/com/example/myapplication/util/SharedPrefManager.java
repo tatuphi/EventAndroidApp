@@ -50,4 +50,5 @@ public class SharedPrefManager {
     public Boolean getSPLogin(){
         return sp.getBoolean(SP_LOGIN, false);
     }
+
 }

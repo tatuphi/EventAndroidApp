@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class HistoryParticipation extends RecyclerView.Adapter<HistoryParticipation.HistoryParticipationHolder> {
     List<Result> listAllEventResponses;
-    String price,time, time1;
+    String price,time, time1, address;
 
     public HistoryParticipation( List<Result> allEventList){
         listAllEventResponses = allEventList;
@@ -45,14 +45,24 @@ public class HistoryParticipation extends RecyclerView.Adapter<HistoryParticipat
              price = "FREE";
          }
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-        Date today  = listAllEventitem.getSession().get(0).getDay();
-        time = dateFormat.format(today).toString();
+         if (listAllEventitem.getSession().size()==0){
+             time ="";
+             time1= "";
+             address = "";
+         }
+         else
+         {
+             SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+             Date today  = listAllEventitem.getSession().get(0).getDay();
+             time = dateFormat.format(today).toString();
 
-//        format date 1
-        SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd\nMMM");
-        Date today1  = listAllEventitem.getSession().get(0).getDay();
-        time1 = dateFormat1.format(today1).toString();
+             //        format date 1
+             SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd\nMMM");
+             Date today1  = listAllEventitem.getSession().get(0).getDay();
+             time1 = dateFormat1.format(today1).toString();
+
+             address = listAllEventitem.getSession().get(0).getAddress().getLocation();
+         }
 
 //        address, price,
 //        banner
@@ -60,7 +70,8 @@ public class HistoryParticipation extends RecyclerView.Adapter<HistoryParticipat
 
         holder.txt_dateEvent.setText(time1);
         holder.txt_eventName.setText(listAllEventitem.getName());
-        holder.txt_address.setText(listAllEventitem.getSession().get(0).getAddress().getLocation());
+
+        holder.txt_address.setText(address);
         holder.txt_price.setText(price);
         holder.txt_category.setText(listAllEventitem.getEventCategory().getName());
         holder.txt_time.setText(time);

@@ -29,8 +29,8 @@ public class Notification extends AppCompatActivity {
     @BindView(R.id.rvListNotification) RecyclerView rvListNotification;
     Context mContext;
     BaseApiService mApiService;
-    NotificationAdapter notificationAdapter;
-    List<Result> notificationItemList = new ArrayList<>();
+//    NotificationAdapter notificationAdapter;
+//    List<Result> notificationItemList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

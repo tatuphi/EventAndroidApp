@@ -9,5 +9,6 @@ public class Constants {
     public static String KEY_BANNERURL = "keyBannerUrl";
     public static String KEY_URLWEB = "keyUrlWeb";
     public static String KEY_SESSION = "keySession";
-
+    public static String KEY_EVENTID = "keyEventId";
+    public static String KEY_EVENTNAME = "keyEventName";
 }

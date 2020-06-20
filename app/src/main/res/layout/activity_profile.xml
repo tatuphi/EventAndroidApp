@@ -37,7 +37,8 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_centerInParent="true"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:text=""/>
 
         </RelativeLayout>
 
