@@ -10,9 +10,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.FileAdapter;
@@ -29,16 +30,20 @@ import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;
 import com.squareup.picasso.Picasso;
 
-import java.util.Date;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailEvent extends AppCompatActivity {
+
     @BindView(R.id.img_banner) ImageView img_banner;
     @BindView(R.id.txt_name) TextView txt_name;
     @BindView(R.id.txt_status) TextView txt_status;
@@ -47,14 +52,23 @@ public class DetailEvent extends AppCompatActivity {
 //    bindview session detail
     @BindView(R.id.txt_joinNumber) TextView txt_joinNumber;
     @BindView(R.id.txt_address1) TextView txt_address;
-//    @BindView(R.id.googleMap) ImageView googleMap;
-//    @BindView(R.id.roomMap) ImageView roomMap;
+    @BindView(R.id.roomMap) ImageView roomMap;
 //    recyclerview
     @BindView(R.id.rvSchedules) RecyclerView rvSchedules;
     @BindView(R.id.rvFiles) RecyclerView rvFiles;
+    @BindView(R.id.btn_applyEvent) Button btn_applyEvent;
+    @BindView(R.id.btn_cancelEvent) Button btn_cancelEvent;
+    @BindView(R.id.mapHere) TextView mapHere;
 //    item in recyclerview
 
-    String evenId;
+//    SupportMapFragment mapFrag;
+//    private GoogleMap mMap;
+    Session sessionItem;
+    String eventId, typeTab,statusSession;
+    Boolean isCancelSession = false;
+
+//    List<String> arrSessionIds;
+
     Context mContext;
     BaseApiService mApiService;
 
@@ -62,17 +76,23 @@ public class DetailEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_event);
+//        mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+//        mapFrag.getMapAsync((OnMapReadyCallback) mContext);
 
         ButterKnife.bind(this);
         mContext = this;
         mApiService = UtilsApi.getAPIService();
 
+
 //        get Intent from tabs
         Intent intent = getIntent();
-        evenId = intent.getStringExtra(Constants.KEY_ID);
+        eventId = intent.getStringExtra(Constants.KEY_ID);
+        typeTab = intent.getStringExtra(Constants.KEY_STATUS);
 //        adapter
         rvListDate.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvListDate.setItemAnimator(new DefaultItemAnimator());
+//        set up maps
+
 //        adapter list time
         rvSchedules.setLayoutManager(new LinearLayoutManager(this));
         rvSchedules.setItemAnimator(new DefaultItemAnimator());
@@ -83,7 +103,7 @@ public class DetailEvent extends AppCompatActivity {
         getDetailEvent();
     }
     private void getDetailEvent(){
-        mApiService.get_event_inf(evenId).enqueue(new Callback<Example>() {
+        mApiService.get_event_inf(eventId).enqueue(new Callback<Example>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
@@ -97,11 +117,19 @@ public class DetailEvent extends AppCompatActivity {
 //                    adapter session event
                     final List<Session> dateItems = event.getSession();
                     rvListDate.setAdapter(new SessionEvent(mContext, dateItems));
-//                    default first session infor
-                    txt_joinNumber.setText(dateItems.get(0).getJoinNumber().toString() + " people particated");
-                    txt_address.setText(dateItems.get(0).getAddress().getLocation());
-                    rvSchedules.setAdapter(new TimeAdapter(mContext,dateItems.get(0).getDetail()));
-                    rvFiles.setAdapter(new FileAdapter(mContext, dateItems.get(0).getDocuments()));
+
+//                    default first session `infor`
+                    if( dateItems.size()>0 ){
+                        if(dateItems.get(0).getJoinNumber()!=0){
+                            txt_joinNumber.setText(dateItems.get(0).getJoinNumber().toString() + " people particated");
+                        }
+                        if (!dateItems.get(0).getAddress().getLocation().equals(""))
+                        {
+                            txt_address.setText(dateItems.get(0).getAddress().getLocation());
+                        }
+                        rvSchedules.setAdapter(new TimeAdapter(mContext,dateItems.get(0).getDetail()));
+                        rvFiles.setAdapter(new FileAdapter(mContext, dateItems.get(0).getDocuments()));
+                    }
 
                     //        comment click
                     txt_comment.setOnClickListener(new View.OnClickListener() {
@@ -117,14 +145,133 @@ public class DetailEvent extends AppCompatActivity {
                     rvListDate.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
-                            Session sessionItem = dateItems.get(position);
-                            txt_joinNumber.setText(sessionItem.getJoinNumber().toString() + " people particated");
-
-//                            txt_address.setText(sessionItem.getAddress().getLocation());
+//                            each session
+                            sessionItem = dateItems.get(position);
+                            if (sessionItem.getJoinNumber()>0){
+                                txt_joinNumber.setText(sessionItem.getJoinNumber().toString() + " people particated");
+                            }
+                            if (!sessionItem.getAddress().getLocation().equals(""))
+                            {
+                                txt_address.setText(sessionItem.getAddress().getLocation());
+                            }
+                            if (sessionItem.getAddress().getDetailImage()!=null){
+                                roomMap.setVisibility(View.VISIBLE);
+                                Picasso.get().load(sessionItem.getAddress().getDetailImage()).into(roomMap);
+                            }
+                            else{
+                                roomMap.setVisibility(View.GONE);
+                            }
+//                            if (sessionItem.getAddress().getMap().getLat()==null || sessionItem.getAddress().getMap().getLng()==null){
+//                                mapHere.setVisibility(View.GONE);
+//                            }
+//                            else
+//                            {
+//                                Intent mapIntent = new Intent(mContext, MapsActivity.class);
+//                                mapIntent.putExtra(Constants.KEY_LAT, sessionItem.getAddress().getMap().getLat());
+//                                mapIntent.putExtra(Constants.KEY_LNG, sessionItem.getAddress().getMap().getLng());
+//                                startActivity(mapIntent);
+//                            }
                             List<Detail> detailItems = sessionItem.getDetail();
                             rvSchedules.setAdapter(new TimeAdapter(mContext,detailItems));
                             List<Document> documentItems = sessionItem.getDocuments();
                             rvFiles.setAdapter(new FileAdapter(mContext, documentItems));
+
+                            String statusEvent = event.getStatus();
+//                            fields in a session
+                            String sessionId = sessionItem.getIdSession();
+
+//                            arrSessionIds = new ArrayList<String>();
+//                            arrSessionIds.add(sessionId);
+                            if (sessionItem.getStatus()==null)
+                            {
+                                statusSession = "CANJOIN";
+                            }
+                            else
+                            {
+                                statusSession = sessionItem.getStatus();
+                            }
+                            if (sessionItem.getIsCancel()==null)
+                            {
+                                statusSession = "CANJOIN";
+                            }
+                            else
+                            {
+                                if (sessionItem.getIsCancel())
+                                {
+                                    isCancelSession = true;
+                                }
+                                else {
+                                    isCancelSession =false;
+                                }
+                            }
+//                            Boolean isCancelSession = sessionItem.getIsCancel();
+                            String[] arrIdSessions = {sessionId};
+//                  handle button apply event && cancel event
+                            btn_applyEvent.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v)
+                                {
+                                    Intent choosePaymentScreen = new Intent(mContext, ChoosePayment.class);
+                                    choosePaymentScreen.putExtra(Constants.KEY_EVENTID, event.getId());
+                                    choosePaymentScreen.putExtra(Constants.KEY_SESSIONID, sessionId);
+                                    startActivity(choosePaymentScreen);
+                                }
+                            });
+
+                            btn_cancelEvent.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+//                                    show verify notification to cancel session
+                                    mApiService.cancelEvent(event.getId(), arrIdSessions).enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                            if(response.isSuccessful())
+                                            {
+                                                Toast.makeText(mContext,"Canceled", Toast.LENGTH_LONG).show();
+                                            }
+                                            else
+                                            {
+                                                try {
+                                                    JSONObject jsonError = new JSONObject(response.errorBody().string());
+                                                    Toast.makeText(mContext, jsonError.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
+
+                                                } catch (Exception e) {
+                                                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                        }
+                                    });
+                                }
+                            });
+//                            condition to set visible button
+                            if (typeTab.equals("RECENT"))
+                            {
+
+                                if( isCancelSession || !statusEvent.equals("PUBLIC"))
+                                {
+                                    btn_cancelEvent.setVisibility(View.GONE);
+                                    btn_applyEvent.setVisibility(View.GONE);
+                                }
+                                else if(statusSession.equals("JOINED")){
+                                    btn_cancelEvent.setVisibility(View.VISIBLE);
+                                    btn_applyEvent.setVisibility(View.GONE);
+
+                                }
+                                else {
+                                    btn_applyEvent.setVisibility(View.VISIBLE);
+                                    btn_cancelEvent.setVisibility(View.GONE);
+                                }
+                            }
+                            else {
+                                // not visible button
+                                btn_cancelEvent.setVisibility(View.GONE);
+                                btn_applyEvent.setVisibility(View.GONE);
+                            }
                         }
                     }));
                 }
@@ -134,4 +281,13 @@ public class DetailEvent extends AppCompatActivity {
             }
         });
     }
+
+//    @Override
+//    public void onMapReady(GoogleMap googleMap) {
+//        mMap = googleMap;
+//        // Add a marker in Sydney and move the camera
+//        LatLng sydney = new LatLng(sessionItem.getAddress().getMap().getLat(), sessionItem.getAddress().getMap().getLng());
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in my event"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//    }
 }

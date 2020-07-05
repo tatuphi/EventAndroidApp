@@ -1,15 +1,18 @@
 package com.example.myapplication.util.api;
 
-
+import com.example.myapplication.model.ApplyEvent;
 import com.example.myapplication.model.BaseResult;
 import com.example.myapplication.model.BaseUser;
 import com.example.myapplication.model.ListEvent.Example;
 import com.example.myapplication.model.Notification.BadgeNumber;
 
+
 import java.util.Date;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -80,7 +83,7 @@ public interface BaseApiService {
     Call<BaseUser> get_History();
 //    get logout
     @GET("logout")
-    Call<BaseUser> getlogout();
+    Call<BaseResult> getlogout();
 //    get verify code/token after registering
     @GET("verifyToken")
     Call<BaseResult> getverifyToken(@Query("token") String token);
@@ -133,4 +136,53 @@ public interface BaseApiService {
     @POST("comment/save")
     Call<ResponseBody> saveComment(     @Field("eventId") String eventId,
                                         @Field("content") String content);
+//    verify event member
+    @FormUrlEncoded
+    @POST("verifyEventMember")
+    Call<ResponseBody> verifyEventMember(@Field("joinUserId") String joinUserId,
+                                         @Field("eventId") String eventId,
+                                         @Field("sessionId") String sessionId);
+
+// payment
+    @FormUrlEncoded
+    @POST("set_card_default")
+    Call<ResponseBody> setCardDefault(@Field("cardId") String cardId );
+
+    @FormUrlEncoded
+    @POST("del_card")
+    Call<ResponseBody> delCard(@Field("cardId") String cardId);
+
+    @FormUrlEncoded
+    @POST("add_card")
+    Call<ResponseBody> addCard(@Field("cardToken") String cardToken);
+
+//    get list card
+    @GET("get_listcard")
+    Call<com.example.myapplication.model.ListCard.Example> getListCard();
+//    get payment history, query theo pageNumber or
+    @GET("payment_history")
+    Call<com.example.myapplication.model.PaymentHistory.Example> getPaymentHistory();
+//    join event
+    @POST("joinEvent")
+    Call<ResponseBody> joinEvent(@Body ApplyEvent applyEvent);
+//    cancel Event
+    @FormUrlEncoded
+    @POST("cancelEvent")
+    Call<ResponseBody> cancelEvent(@Field("eventId")String eventId,
+                                   @Field("sessionIds") String[] sessionIds);
+//  reject member event
+    @FormUrlEncoded
+    @POST("rejectEventMenber")
+    Call<ResponseBody> rejectEventMenber (@Field("joinUserId") String joinUserId,
+                                          @Field("eventId") String eventId,
+                                          @Field("sessionId") String sessionId);
+//    getUserJoinEvent
+    @GET("get_user_join_event")
+    Call<com.example.myapplication.model.UserJoinEvent.Example> get_user_join_event(
+            @Query("eventId") String eventId,
+            @Query("sessionId") String sessionId,
+            @Query("pageNumber") String pageNumber,
+            @Query("numberRecord") String numberRecord
+    );
+
 }

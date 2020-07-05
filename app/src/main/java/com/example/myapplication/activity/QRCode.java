@@ -15,6 +15,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.util.Constants;
 import com.example.myapplication.util.SharedPrefManager;
 
+import org.json.JSONException;
+
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 import butterknife.BindView;
@@ -25,7 +27,7 @@ public class QRCode extends AppCompatActivity {
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
 
-    String mEmail;
+    String mId;
 
     Context mContext;
     SharedPrefManager sharedPrefManager;
@@ -39,8 +41,14 @@ public class QRCode extends AppCompatActivity {
         mContext = this;
         sharedPrefManager = new SharedPrefManager(this);
 
-        mEmail = sharedPrefManager.getSPEmail();
-        if (mEmail.length() > 0) {
+//        mEmail = sharedPrefManager.getSPEmail();
+        try {
+            mId =sharedPrefManager.getSPObjectUser().getString("_id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (mId.length() > 0) {
             WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
             Display display = manager.getDefaultDisplay();
             Point point = new Point();
@@ -51,7 +59,7 @@ public class QRCode extends AppCompatActivity {
             smallerDimension = smallerDimension * 3 / 4;
 
             qrgEncoder = new QRGEncoder(
-                    mEmail, null,
+                    mId, null,
                     QRGContents.Type.TEXT,
                     smallerDimension);
             qrgEncoder.setColorBlack(Color.BLACK);

@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,13 +40,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.txt_createAccount) TextView txt_createAccount;
     @BindView(R.id.txt_loginGoogle) TextView txt_loginGoogle;
 
-
     Context mContext;
     BaseApiService mApiService;
     SharedPrefManager sharedPrefManager;
     Validate mValidate;
     ProgressDialog mProgressDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,15 +95,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(forgetPassword);
             }
         });
-
 //        if (sharedPrefManager.getSPLogin()==true){
-//            Intent home = new Intent(Login.this, HomeActivity.class);
+//            Intent home = new Intent(mContext, HomeActivity.class);
 //            startActivity(home);
 //            finish();
 //        }
     }
 
     private void login(){
+        mProgressDialog.dismissProgressDialog(mContext);
         mApiService.loginRequest(input_email.getText().toString(), input_password.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -113,19 +112,13 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 Toast.makeText(mContext, "Logined", Toast.LENGTH_SHORT).show();
+                                sharedPrefManager.saveSPObjectUser(SharedPrefManager.SP_OBJUSER, jsonRESULTS.getJSONObject("result"));
+                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_LOGIN, false);
+                                Log.e("debug", "onFailure: sharepreferences > " + sharedPrefManager.getSPLogin() );
+                                Log.e("debug", "onFailure:  > " + sharedPrefManager.getSPObjectUser().getString("fullName"));
+
                                 startActivity(new Intent(mContext, HomeActivity.class));
-                                String email = jsonRESULTS.getJSONObject("result").getString("email");
-                                String fullname = jsonRESULTS.getJSONObject("result").getString("fullName");
-                                String urlImage = jsonRESULTS.getJSONObject("result").getString("avatar");
-                                sharedPrefManager.saveSPString(SharedPrefManager.SP_EMAIL, email);
-                                // Shared Pref session login
-                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_LOGIN, true);
-                                sharedPrefManager.saveSPString(SharedPrefManager.SP_NAME, fullname);
-                                sharedPrefManager.saveSPString(SharedPrefManager.SP_URLAVATAR, urlImage);
-                                Log.e("test", "value share:"+ sharedPrefManager.getSPEmail());
-
                                 finish();
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {

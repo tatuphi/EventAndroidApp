@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.myapplication.Tab1Fragment;
@@ -17,6 +18,7 @@ import com.example.myapplication.Tab2Fragment;
 import com.example.myapplication.Tab3Fragment;
 import com.example.myapplication.Tab4Fragment;
 import com.example.myapplication.TabAdapter;
+import com.example.myapplication.model.BaseResult;
 import com.example.myapplication.model.Notification.BadgeNumber;
 import com.example.myapplication.util.SharedPrefManager;
 import com.example.myapplication.util.api.BaseApiService;
@@ -31,6 +33,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,20 +76,23 @@ public class HomeActivity extends AppCompatActivity {
         mApiService = UtilsApi.getAPIService();
         sharedPrefManager = new SharedPrefManager(this);
         adapter = new TabAdapter(getSupportFragmentManager());
-
+        JSONObject objUser = sharedPrefManager.getSPObjectUser();
 
         View header = navigationView.getHeaderView(0);
         fullname = (TextView) header.findViewById(R.id.profile_fullname);
-        fullname.setText(sharedPrefManager.getSPName());
-
         circleImageView = (CircleImageView) header.findViewById(R.id.profile_image);
-        Picasso.get().load(sharedPrefManager.getSPUrlavatar()).into(circleImageView);
+        try {
+            fullname.setText(objUser.getString("fullName"));
+            Picasso.get().load(sharedPrefManager.getSPObjectUser().getString("avatar")).into(circleImageView);
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-
 
 //        add fragments
         adapter.addFragment(new Tab1Fragment(), "All");
@@ -130,11 +138,20 @@ public class HomeActivity extends AppCompatActivity {
                             case R.id.nav_item_qrCode:
                                 startActivity(new Intent(mContext, QRCode.class));
                                 break;
+                            case R.id.nav_item_creditCard:
+                                startActivity(new Intent(mContext, ListCard.class));
+                                break;
+                            case R.id.nav_item_paymentHistory:
+                                startActivity(new Intent(mContext, Payment.class));
+                                break;
                             case R.id.nav_item_settings:
                                 startActivity(new Intent(mContext, settings.class));
                                 break;
                             case R.id.nav_item_changePassword:
                                 startActivity(new Intent(mContext, ChangePassword.class));
+                                break;
+                            case R.id.nav_item_logout:
+                                getLogout();
                                 break;
                         }
                         mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -147,6 +164,7 @@ public class HomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
         final MenuItem menuItem = menu.findItem(R.id.action_notification);
+
 
         View actionView = menuItem.getActionView();
         textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
@@ -171,6 +189,9 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             case R.id.action_notification:
                 startActivity(new Intent(mContext, Notification.class));
+                break;
+            case R.id.action_scanQR:
+                startActivity(new Intent(mContext, ScanQRCode.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -207,6 +228,33 @@ public class HomeActivity extends AppCompatActivity {
     {
         Intent register = new Intent(HomeActivity.this, profile.class);
         startActivity(register);
+    }
+    public void getLogout(){
+        mApiService.getlogout().enqueue(new Callback<BaseResult>() {
+            @Override
+            public void onResponse(Call<BaseResult> call, Response<BaseResult> response) {
+                if(response.isSuccessful()){
+                    sharedPrefManager.logout();
+                    Toast.makeText(mContext, "Logout successfully!", Toast.LENGTH_LONG).show();
+//                    startActivity(new Intent(mContext, MainActivity.class));
+                }
+                else
+                {
+                    try {
+                        JSONObject jsonError = new JSONObject(response.errorBody().string());
+                        Log.e("debug", "onFailure: ERROR 600 > " + jsonError.getJSONObject("error").getString("message") );
+                        Toast.makeText(mContext, jsonError.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResult> call, Throwable t) {
+
+            }
+        });
     }
 
 }

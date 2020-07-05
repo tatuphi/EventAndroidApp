@@ -57,6 +57,11 @@ public class Result {
     @SerializedName("ticket")
     @Expose
     private Ticket ticket;
+//    27/06
+//    add new field
+    @SerializedName("domain")
+    @Expose
+    private String domain;
 
     public String getId() {
         return id;
@@ -192,5 +197,13 @@ public class Result {
 
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
+    }
+
+//    add new field
+    public String getDomain(){
+        return domain;
+    }
+    public void setDomain(String domain){
+        this.domain = domain;
     }
 }

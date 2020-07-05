@@ -65,6 +65,7 @@ public class Tab3Fragment extends Fragment {
                             Result items = listPastEventItems.get(position);
                             String id = items.getId();
                             Intent detailEvent = new Intent(getActivity(), DetailEvent.class);
+                            detailEvent.putExtra(Constants.KEY_STATUS, "PAST");
                             detailEvent.putExtra(Constants.KEY_ID, id);
                             startActivity(detailEvent);
 

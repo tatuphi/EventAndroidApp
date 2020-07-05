@@ -20,7 +20,6 @@ import com.example.myapplication.adapter.CommentAdapter;
 import com.example.myapplication.model.Comment.Example;
 import com.example.myapplication.model.Comment.Result;
 import com.example.myapplication.util.Constants;
-import com.example.myapplication.util.SharedPrefManager;
 import com.example.myapplication.util.Validate;
 import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;

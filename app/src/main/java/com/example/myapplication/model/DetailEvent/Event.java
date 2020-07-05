@@ -53,6 +53,11 @@ public class Event {
     @SerializedName("eventCategory")
     @Expose
     private EventCategory eventCategory;
+    //    27/06
+//    add new field
+    @SerializedName("domain")
+    @Expose
+    private String domain;
 
     public String getId() {
         return id;
@@ -173,4 +178,12 @@ public class Event {
     public void setEventCategory(EventCategory eventCategory) {
         this.eventCategory = eventCategory;
     }
+    //    add new field
+    public String getDomain(){
+        return domain;
+    }
+    public void setDomain(String domain){
+        this.domain = domain;
+    }
+
 }

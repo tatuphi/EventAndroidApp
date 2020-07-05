@@ -37,12 +37,6 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.MyView> {
     public void onBindViewHolder(FileAdapter.MyView holder, int position)
     {
         final Document documentItem = documentSession.get(position);
-
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd\nMMM");
-//        Date today = sessionItem.getDay();
-//        String dateTime = dateFormat.format(today);
-        // Set the text of each item of
-        // Recycler view with the list items
         holder.txt_file.setText(documentItem.getUrl());
     }
     public int getItemCount()

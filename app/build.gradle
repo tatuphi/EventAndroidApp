@@ -41,6 +41,7 @@ dependencies {
 
 //    butterknife
     implementation 'com.jakewharton:butterknife:10.2.1'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
 
@@ -53,6 +54,8 @@ dependencies {
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.0'
 //    qr code scan
     implementation 'com.github.blikoon:QRCodeScanner:0.1.2'
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
+
 //    qr code generator
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
 
@@ -65,9 +68,13 @@ dependencies {
 //    circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 //    code input
-    implementation 'com.github.glomadrian:CodeInput:1.1@aar'
+//    implementation 'com.github.glomadrian:CodeInput:1.1@aar'
 //    picasso image
     implementation 'com.squareup.picasso:picasso:2.71828'
+//    stripe
+    implementation 'com.stripe:stripe-android:14.5.0'
+//    pretty time
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.5.Final'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.1.0'

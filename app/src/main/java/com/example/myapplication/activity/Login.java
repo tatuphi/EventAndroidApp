@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class Login extends AppCompatActivity {
     SharedPrefManager sharedPrefManager;
     Validate mValidate;
     ProgressDialog mProgressDialog;
+    DialogInterface dialog;
 
 
     @Override
@@ -100,7 +102,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        if (sharedPrefManager.getSPLogin()==true){
+        if (sharedPrefManager.getSPLogin()){
             Intent home = new Intent(Login.this, HomeActivity.class);
             startActivity(home);
             finish();
@@ -108,6 +110,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void login(){
+        dialog.dismiss();
         mApiService.loginRequest(input_email.getText().toString(), input_password.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -115,20 +118,12 @@ public class Login extends AppCompatActivity {
                         if (response.isSuccessful()){
                             try {
                                     JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                    Toast.makeText(mContext, "Logined", Toast.LENGTH_SHORT).show();
-
-
-                                    String email = jsonRESULTS.getJSONObject("result").getString("email");
-                                    String fullname = jsonRESULTS.getJSONObject("result").getString("fullName");
-                                    String urlImage = jsonRESULTS.getJSONObject("result").getString("avatar");
-                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_EMAIL, email);
-                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_NAME, fullname);
-                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_URLAVATAR, urlImage);
+                                    Toast.makeText(mContext, "You are logined", Toast.LENGTH_SHORT).show();
                                     // Shared Pref session login
                                     sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_LOGIN, true);
-                                Log.e("debug", "onFailure: sharepreferences > " + sharedPrefManager.getSPLogin() );
-                                startActivity(new Intent(mContext, HomeActivity.class));
-                                finish();
+                                    Log.e("debug", "onFailure: sharepreferences > " + sharedPrefManager.getSPLogin() );
+                                    startActivity(new Intent(mContext, HomeActivity.class));
+                                    finish();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

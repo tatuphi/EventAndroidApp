@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.example.myapplication.R;
 import com.example.myapplication.model.BaseUser;
 import com.example.myapplication.model.ListEvent.User;
+import com.example.myapplication.util.SharedPrefManager;
 import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;
 import com.squareup.picasso.Picasso;
@@ -18,8 +19,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,6 +49,7 @@ public class profile extends AppCompatActivity {
 
     Context mContext;
     BaseApiService mApiService;
+    SharedPrefManager sharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,8 @@ public class profile extends AppCompatActivity {
         ButterKnife.bind(this);
         mContext = this;
         mApiService = UtilsApi.getAPIService();
-        getProfile();
+        sharedPrefManager = new SharedPrefManager(this);
+        getProfileFromSharedPreferences();
     }
     public void edit_profile(View v)
     {
@@ -91,9 +96,6 @@ public class profile extends AppCompatActivity {
                     job.setText(userInfo.getJob());
 
                     Picasso.get().load(urlImage).into(image);
-//                    Picasso.get().load(urlImage)
-//                            .placeholder(R.mipmap.avatar).error(R.drawable.ic_launcher_background)
-//                            .into(image);
                 }
                 else
                 {
@@ -114,5 +116,53 @@ public class profile extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void getProfileFromSharedPreferences(){
+        JSONObject objUser = sharedPrefManager.getSPObjectUser();
+        try
+        {
+//            urlImage = objUser.getString("avatar");
+
+            fullname.setText(objUser.getString("fullName"));
+            email.setText(objUser.getString("email"));
+
+            String strBirthday = objUser.getString("birthday");
+            Log.e("test","birthday" + strBirthday);
+
+            if (strBirthday.equals(""))
+            {
+                birthday.setText("");
+            }
+            else
+            {
+                String dateInString = strBirthday.substring(0,10);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = formatter.parse(dateInString);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                birthday.setText(dateFormat.format(date).toString());
+            }
+            numberphone.setText(objUser.getString("phone"));
+            description.setText(objUser.getString("discription"));
+            gender.setText(objUser.getString("gender"));
+            job.setText(objUser.getString("job"));
+            urlImage = objUser.getString("avatar");
+            if (urlImage.equals(""))
+            {
+                Picasso.get().load("https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png").into(image);
+            }
+            else {
+                Picasso.get().load(urlImage).into(image);
+            }
+
+//                    Picasso.get().load(urlImage)
+//                            .placeholder(R.mipmap.avatar).error(R.drawable.ic_launcher_background)
+//                            .into(image);
+
+        }
+        catch (JSONException | ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 }

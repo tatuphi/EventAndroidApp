@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.myapplication.activity.DetailEvent;
+import com.example.myapplication.activity.MainActivity;
 import com.example.myapplication.adapter.HistoryParticipation;
 //import com.example.myapplication.model.BaseListAllRespone;
 //import com.example.myapplication.model.ListAllEventResponse;
@@ -71,11 +72,10 @@ public class Tab1Fragment extends Fragment {
                        public void onItemClick(View view, int position) {
                            Result items = listAllEventItems.get(position);
                            String id = items.getId();
-
                            Intent detailEvent = new Intent(getActivity(), DetailEvent.class);
                            detailEvent.putExtra(Constants.KEY_ID,id);
+                           detailEvent.putExtra(Constants.KEY_STATUS, "ALL");
                            startActivity(detailEvent);
-
                        }
                    }));
                 }
@@ -84,12 +84,12 @@ public class Tab1Fragment extends Fragment {
                         JSONObject jsonError = new JSONObject(response.errorBody().string());
                         Log.e("debug", "onFailure: ERROR 600 > " + jsonError.getJSONObject("error").getString("message") );
                         Toast.makeText(getActivity(), jsonError.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
+
                     } catch (Exception e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<Example> call, Throwable t) {
             }

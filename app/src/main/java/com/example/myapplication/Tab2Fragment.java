@@ -68,6 +68,8 @@ public class Tab2Fragment extends Fragment {
                             String id = items.getId();
                             Intent detailEvent = new Intent(getActivity(), DetailEvent.class);
                             detailEvent.putExtra(Constants.KEY_ID, id);
+                            detailEvent.putExtra(Constants.KEY_STATUS, "RECENT");
+                            startActivity(detailEvent);
                         }
                     }));
                 }

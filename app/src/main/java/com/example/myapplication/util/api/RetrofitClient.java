@@ -1,11 +1,14 @@
 package com.example.myapplication.util.api;
 
+import android.util.Log;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
@@ -24,7 +27,11 @@ public class RetrofitClient {
     public static Retrofit getClient(String baseUrl){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .addNetworkInterceptor(new Interceptor() {
                     @Override
@@ -55,6 +62,11 @@ public class RetrofitClient {
             if (url.encodedPath().endsWith("login") || url.encodedPath().endsWith("register")) {
                 this.cookies = new ArrayList<>(cookies);
                 this.cookies.addAll(cookies);
+
+                for(int i=0; i<cookies.size();i++)
+                {
+                    Log.e("debug",""+ cookies.get(i));
+                }
             }
         }
 

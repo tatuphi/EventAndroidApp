@@ -34,9 +34,20 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentH
     @Override
     public void onBindViewHolder (CommentAdapter.CommentHolder holder, int position){
         Result commentItem = listComment.get(position);
-        Picasso.get().load(commentItem.getUsersComment().getAvatar()).into(holder.avatar_user);
-        holder.txt_userName.setText(commentItem.getUsersComment().getFullName());
-        holder.txt_contentComment.setText(commentItem.getContent());
+        if (getItemCount()>0)
+        {
+            if (!commentItem.getUsersComment().getAvatar().equals(""))
+            {
+                Picasso.get().load(commentItem.getUsersComment().getAvatar()).into(holder.avatar_user);
+            }
+            else {
+                Picasso.get().load("https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png").into(holder.avatar_user);
+            }
+            Picasso.get().load(commentItem.getUsersComment().getAvatar()).into(holder.avatar_user);
+            holder.txt_userName.setText(commentItem.getUsersComment().getFullName());
+            holder.txt_contentComment.setText(commentItem.getContent());
+        }
+
     }
     @Override
     public int getItemCount(){
