@@ -33,6 +33,7 @@ public class SharedPrefManager{
     public static final String SP_APP = "spApp";
     public static final String SP_LOGIN = "spLogin";
     public static final String SP_OBJUSER = "spObjUser";
+    public static final String SP_IDUSER = "spIdUser";
 
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
@@ -53,6 +54,11 @@ public class SharedPrefManager{
         spEditor.putString(keySP, json);
         spEditor.commit();
     }
+    public void saveSPString(String keySP, String value){
+        spEditor.putString(keySP, value);
+        spEditor.commit();
+    }
+
     public Boolean getSPLogin(){
         return sp.getBoolean(SP_LOGIN, false);
     }
@@ -62,6 +68,9 @@ public class SharedPrefManager{
         String json = sp.getString(SP_OBJUSER, "");
         JSONObject obj = gson.fromJson(json, JSONObject.class);
         return  obj;
+    }
+    public String getSpIduser(){
+        return sp.getString(SP_IDUSER, "");
     }
     public void logout(){
         spEditor.clear();

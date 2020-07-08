@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -59,16 +60,17 @@ public class Tab4Fragment extends Fragment {
                     final List<Result> listSelfEventItems = response.body().getResult();
                     rvListSelf.setAdapter(new HistoryParticipation(listSelfEventItems));
                     rvListSelf.setItemAnimator(new DefaultItemAnimator());
-//                    rvListSelf.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(View view, int position) {
-//                            Result items = listSelfEventItems.get(position);
-//                            String id = items.getId();
-//                            Intent detailEvent = new Intent(getActivity(), DetailEvent.class);
-//                            detailEvent.putExtra(Constants.KEY_ID,id);
-//                            startActivity(detailEvent);
-//                        }
-//                    }));
+                    rvListSelf.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            Result items = listSelfEventItems.get(position);
+                            String id = items.getId();
+                            Intent detailEvent = new Intent(getActivity(), DetailEvent.class);
+                            detailEvent.putExtra(Constants.KEY_STATUS,"SELF");
+                            detailEvent.putExtra(Constants.KEY_ID,id);
+                            startActivity(detailEvent);
+                        }
+                    }));
                 }
                 else {
                     try {

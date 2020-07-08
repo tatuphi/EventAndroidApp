@@ -59,6 +59,7 @@ public class DetailEvent extends AppCompatActivity {
     @BindView(R.id.btn_applyEvent) Button btn_applyEvent;
     @BindView(R.id.btn_cancelEvent) Button btn_cancelEvent;
     @BindView(R.id.mapHere) TextView mapHere;
+    @BindView(R.id.btn_returnListUser) TextView btn_returnListUser;
 //    item in recyclerview
 
 //    SupportMapFragment mapFrag;
@@ -147,10 +148,10 @@ public class DetailEvent extends AppCompatActivity {
                         public void onItemClick(View view, int position) {
 //                            each session
                             sessionItem = dateItems.get(position);
-                            if (sessionItem.getJoinNumber()>0){
+                            if (sessionItem.getJoinNumber()!=null){
                                 txt_joinNumber.setText(sessionItem.getJoinNumber().toString() + " people particated");
                             }
-                            if (!sessionItem.getAddress().getLocation().equals(""))
+                            if (sessionItem.getAddress().getLocation()!=null)
                             {
                                 txt_address.setText(sessionItem.getAddress().getLocation());
                             }
@@ -271,6 +272,19 @@ public class DetailEvent extends AppCompatActivity {
                                 // not visible button
                                 btn_cancelEvent.setVisibility(View.GONE);
                                 btn_applyEvent.setVisibility(View.GONE);
+                                if(typeTab.equals("SELF"))
+                                {
+                                    btn_returnListUser.setVisibility(View.VISIBLE);
+                                    btn_returnListUser.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(mContext, ListApplyUser.class);
+                                            intent.putExtra(Constants.KEY_SESSIONID, sessionItem.getIdSession());
+                                            intent.putExtra(Constants.KEY_EVENTID, eventId);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
                             }
                         }
                     }));

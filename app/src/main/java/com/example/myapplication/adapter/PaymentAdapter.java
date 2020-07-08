@@ -1,9 +1,11 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.PaymentHistory.Result;
+import com.squareup.picasso.Picasso;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -22,14 +25,15 @@ import butterknife.ButterKnife;
 public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context mContext;
     List<Result> listPayment;
+    String myUserId;
     private static int TYPE_PAYMENT = 1;
     private static int TYPE_REFUND = 2;
 
 
-    public PaymentAdapter(Context context, List<Result> listVertical) {
+    public PaymentAdapter(Context context, List<Result> listVertical, String userId) {
         this.mContext = context;
         this.listPayment = listVertical;
-
+        this.myUserId = userId;
     }
 
     @Override
@@ -49,11 +53,12 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     class PaymentViewHolder extends RecyclerView.ViewHolder {
         PrettyTime p = new PrettyTime();
-
         @BindView(R.id.txt_senderName) TextView txt_senderName;
         @BindView(R.id.txt_amountPayment) TextView txt_amountPayment;
         @BindView(R.id.txt_contentPayment) TextView txt_contentPayment;
         @BindView(R.id.txt_timePayment) TextView txt_timePayment;
+        @BindView(R.id.img_cardPayment) ImageView img_cardPayment;
+        @BindView(R.id.txt_statuspayment) TextView txt_statuspayment;
         PaymentViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -74,20 +79,29 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     sessionName = paymentDetails.getEventId().getSession().get(i).getName();
                 }
             }
-            if (paymentDetails.getStatus().equals("PAID"))
-            {
+//            another way
+            if (paymentDetails.getSender().getId().equals(myUserId)){
                 txt_senderName.setText("You");
                 txt_amountPayment.setText("-" + paymentDetails.getAmount()+" VND");
+                txt_amountPayment.setTextColor(Color.parseColor("#fa0532"));
                 txt_contentPayment.setText("You " + "paid for " + receiverName +" in session " + sessionName + " of event " + eventName);
                 txt_timePayment.setText(time);
             }
             else {
                 txt_senderName.setText(senderName);
                 txt_amountPayment.setText("+" + paymentDetails.getAmount()+" VND");
+                txt_amountPayment.setTextColor(Color.parseColor("#08c915"));
                 txt_contentPayment.setText(senderName + " sent for you in session " + sessionName + " of event " + eventName);
                 txt_timePayment.setText(time);
             }
-
+            if (!paymentDetails.getStatus().equals("PAID")){
+                txt_statuspayment.setVisibility(View.VISIBLE);
+                txt_statuspayment.setText(paymentDetails.getStatus());
+                txt_amountPayment.setTextColor(Color.parseColor("#aba6a6"));
+            }
+            if (paymentDetails.getPayType().equals("ZALOPAY")){
+                Picasso.get().load("https://i.ibb.co/jrBG8yw/zalo-pay.png").into(img_cardPayment);
+            }
         }
 
     }
@@ -102,6 +116,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @BindView(R.id.txt_contentPaymentRefund) TextView txt_contentPaymentRefund;
         @BindView(R.id.txt_amountPaymentRefund) TextView txt_amountPaymentRefund;
         @BindView(R.id.txt_timePaymentRefund) TextView txt_timePaymentRefund;
+        @BindView(R.id.img_cardRefund) ImageView img_cardRefund;
         RefundViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -122,7 +137,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     sessionName = refundDetails.getEventId().getSession().get(i).getName();
                 }
             }
-            if(refundDetails.getStatus().equals("PAID")){
+            if (refundDetails.getSender().getId().equals(myUserId)){
                 txt_senderName.setText("You");
                 txt_amountPayment.setText("-" + refundDetails.getAmount()+" VND");
                 txt_contentPayment.setText("You " + "paid for " + receiverName +" in session " + sessionName + " of event " + eventName);
@@ -131,7 +146,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 txt_amountPaymentRefund.setText("+" + refundDetails.getAmount()+" VND");
                 txt_timePaymentRefund.setText(timeUpdate);
             }
-            else{
+            else {
                 txt_senderName.setText(senderName);
                 txt_amountPayment.setText("+" + refundDetails.getAmount()+" VND");
                 txt_contentPayment.setText(senderName + " sent for you in session " + sessionName + " of event " + eventName);
@@ -139,6 +154,10 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 txt_contentPaymentRefund.setText("You refunded for " + senderName + " in session " + sessionName + " of event " + eventName );
                 txt_amountPaymentRefund.setText("-" + refundDetails.getAmount()+" VND");
                 txt_timePaymentRefund.setText(timeUpdate);
+            }
+//            another way
+            if (refundDetails.getPayType().equals("ZALOPAY")){
+                Picasso.get().load("https://i.ibb.co/jrBG8yw/zalo-pay.png").into(img_cardRefund);
             }
         }
     }

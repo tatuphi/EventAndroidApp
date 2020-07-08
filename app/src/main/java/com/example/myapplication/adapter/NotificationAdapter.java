@@ -1,9 +1,11 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,6 +21,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.List;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -45,7 +48,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         String fullname,title, notiContent, type_noti,time;
         String url_icon_noti;
 //        notificationList add to new list;
-        if (!notificationItem.getIsDelete()) {
+        if (notificationItem.getIsRead()){
+            holder.viewForeground.setBackgroundColor(Color.parseColor("#111111"));
+        }
+        if(notificationItem.getIsDelete()){
+            holder.view_item_notification.setVisibility(View.GONE);
+        }
             title = notificationItem.getTitle();
             fullname = notificationItem.getUsersSender().getFullName();
             notiContent = title.replace("{sender}",fullname);
@@ -83,13 +91,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             Picasso.get().load(url_icon_noti).into(holder.img_notification);
             holder.txt_notification.setText(notiContent);
             holder.txt_time.setText(time);
-        }
+
     }
     @Override
     public int getItemCount() {
         return notificationItemList.size();
     }
     public void removeItem(int position){
+
         notificationItemList.remove(position);
         notifyItemRemoved(position);
         notifyItemChanged(position, notificationItemList.size());
@@ -99,6 +108,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         @BindView(R.id.txt_notification) TextView txt_notification;
         @BindView(R.id.img_notification) ImageView img_notification;
         @BindView(R.id.txt_time) TextView txt_time;
+        @BindView(R.id.view_item_notification) FrameLayout view_item_notification;
         public RelativeLayout viewBackground;
         public LinearLayout viewForeground;
 

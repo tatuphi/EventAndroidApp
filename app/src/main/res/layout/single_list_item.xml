@@ -105,8 +105,8 @@
             android:drawableLeft="@mipmap/icons_address"
             android:drawablePadding="5dp"
             android:drawableTint="@color/white"
-            android:textColor="@color/white"
+            android:maxLines="1"
             android:text=""
-            android:maxLines="1" />
+            android:textColor="@color/white" />
     </RelativeLayout>
 </LinearLayout>

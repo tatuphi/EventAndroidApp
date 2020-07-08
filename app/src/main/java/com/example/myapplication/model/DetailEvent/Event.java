@@ -58,6 +58,13 @@ public class Event {
     @SerializedName("domain")
     @Expose
     private String domain;
+//    add new field 07/07
+    @SerializedName("isRequire")
+    @Expose
+    private Boolean isRequire;
+    @SerializedName("isEdit")
+    @Expose
+    private String isEdit;
 
     public String getId() {
         return id;
@@ -184,6 +191,22 @@ public class Event {
     }
     public void setDomain(String domain){
         this.domain = domain;
+    }
+//    add new field
+public Boolean getIsRequire() {
+    return isRequire;
+}
+
+    public void setIsRequire(Boolean isRequire) {
+        this.isRequire = isRequire;
+    }
+
+    public String getIsEdit() {
+        return isEdit;
+    }
+
+    public void setIsEdit(String isEdit) {
+        this.isEdit = isEdit;
     }
 
 }

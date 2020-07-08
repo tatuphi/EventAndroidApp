@@ -24,11 +24,10 @@ public class ApplyUserAdapter extends RecyclerView.Adapter <ApplyUserAdapter.MyV
     List<Result> userJoinEvent ;
     public ApplyAdapteListenner onClickListener;
 
-    public ApplyUserAdapter(Context context, List<Result> verticalList, ApplyAdapteListenner listener)
+    public ApplyUserAdapter(Context context, List<Result> verticalList)
     {
         this.mContext = context;
         this.userJoinEvent = verticalList;
-        onClickListener = listener;
 
     }
     @Override
@@ -84,7 +83,5 @@ public class ApplyUserAdapter extends RecyclerView.Adapter <ApplyUserAdapter.MyV
     }
     public interface ApplyAdapteListenner {
         void rejectButtonOnClick(View v, int position);
-        void clickYes(View v, int position);
-        void clickNo(View v, int position);
     }
 }

@@ -52,9 +52,13 @@ public class HistoryParticipation extends RecyclerView.Adapter<HistoryParticipat
          }
          else
          {
-             SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-             Date today  = listAllEventitem.getSession().get(0).getDay();
-             time = dateFormat.format(today).toString();
+//             SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+//             Date today  = listAllEventitem.getSession().get(0).getDay();
+//             time = dateFormat.format(today).toString();
+
+             if (listAllEventitem.getSession().get(0).getDetail().size()>0){
+                 time=listAllEventitem.getSession().get(0).getDetail().get(0).getFrom().substring(0,5);
+             }
 
              //        format date 1
              SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd\nMMM");

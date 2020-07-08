@@ -19,6 +19,7 @@ import com.example.myapplication.model.PaymentHistory.Example;
 import com.example.myapplication.model.PaymentHistory.Result;
 import com.example.myapplication.util.Constants;
 import com.example.myapplication.util.RecyclerItemClickListener;
+import com.example.myapplication.util.SharedPrefManager;
 import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;
 
@@ -34,11 +35,14 @@ public class Payment extends AppCompatActivity {
     @BindView(R.id.rvPayments) RecyclerView rvPayments;
     @BindView(R.id.txt_amountRevenue) TextView txt_amountRevenue;
     @BindView(R.id.txt_amountExpenditure) TextView txt_amountExpenditure;
-    String total = "100,000 VND";
+    String myUserId;
+//    doanh thu (green)
     int totalRevenue = 0;
+//    chi phi (red)
     int totalExpenditure = 0;
     Context mContext;
     BaseApiService mApiService;
+    SharedPrefManager sharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class Payment extends AppCompatActivity {
         ButterKnife.bind(this);
         mContext = this;
         mApiService = UtilsApi.getAPIService();
+        sharedPrefManager = new SharedPrefManager(this);
 
         rvPayments.setLayoutManager(new LinearLayoutManager(this));
         rvPayments.setItemAnimator(new DefaultItemAnimator());
@@ -60,32 +65,28 @@ public class Payment extends AppCompatActivity {
                 if(response.isSuccessful())
                 {
                     List<Result> paymentItems = response.body().getResult();
+                    myUserId = sharedPrefManager.getSpIduser();
                     for (int i =0;i<paymentItems.size();i++)
                     {
                         if (paymentItems.get(i).getStatus().equals("PAID"))
                         {
-                            if (paymentItems.get(i).getSessionRefunded().size() == 0){
-                                totalRevenue += paymentItems.get(i).getAmount();
+                            if (paymentItems.get(i).getSessionRefunded().size() == 0)
+                            {
+                                if (paymentItems.get(i).getSender().getId().equals(myUserId)){
+                                    totalExpenditure += paymentItems.get(i).getAmount();
+                                }
+                                else{
+                                    totalRevenue += paymentItems.get(i).getAmount();
+                                }
                             }
                             else
                             {
                                 totalRevenue +=0;
-                            }
-                        }
-                        else
-                        {
-                            if (paymentItems.get(i).getSessionRefunded().size() == 0){
-                                totalExpenditure += paymentItems.get(i).getAmount();
-                            }
-                            else
-                            {
-                                totalExpenditure +=0;
+                                totalExpenditure += 0;
                             }
                         }
                     }
-                    rvPayments.setAdapter(new PaymentAdapter(mContext, paymentItems));
-                    Log.v("test revenue",Integer.toString(totalRevenue));
-                    Log.v("test expenditure", Integer.toString(totalExpenditure));
+                    rvPayments.setAdapter(new PaymentAdapter(mContext, paymentItems,myUserId));
                     txt_amountExpenditure.setText(totalExpenditure + " VND");
                     txt_amountRevenue.setText(totalRevenue + " VND");
                     rvPayments.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
@@ -95,6 +96,7 @@ public class Payment extends AppCompatActivity {
                             String id = items.getId();
                             Intent detailPayment = new Intent(mContext, DetailPayment.class);
                             detailPayment.putExtra(Constants.KEY_PAYMENTID,id);
+                            detailPayment.putExtra(Constants.KEY_USERID, myUserId);
                             startActivity(detailPayment);
                         }
                     }));

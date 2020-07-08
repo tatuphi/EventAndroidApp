@@ -10,7 +10,7 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/img_mastercard"
+            android:id="@+id/img_cardRefund"
             android:layout_width="60dp"
             android:layout_height="28dp"
             android:layout_marginTop="20dp"

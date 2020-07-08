@@ -1,5 +1,6 @@
 package com.example.myapplication.util.api;
 
+import com.example.myapplication.activity.DetailPayment;
 import com.example.myapplication.model.ApplyEvent;
 import com.example.myapplication.model.BaseResult;
 import com.example.myapplication.model.BaseUser;
@@ -8,7 +9,6 @@ import com.example.myapplication.model.Notification.BadgeNumber;
 
 
 import java.util.Date;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -159,9 +159,13 @@ public interface BaseApiService {
 //    get list card
     @GET("get_listcard")
     Call<com.example.myapplication.model.ListCard.Example> getListCard();
-//    get payment history, query theo pageNumber or
+//    get payment_history not query
     @GET("payment_history")
     Call<com.example.myapplication.model.PaymentHistory.Example> getPaymentHistory();
+//    get payment history, query theo pageNumber or
+    @GET("payment_history")
+    Call<com.example.myapplication.model.PaymentHistory.Example> getPaymentHistoryLoadMore
+    (@Query("pageNumber") int pageNumber);
 //    join event
     @POST("joinEvent")
     Call<ResponseBody> joinEvent(@Body ApplyEvent applyEvent);
@@ -181,8 +185,10 @@ public interface BaseApiService {
     Call<com.example.myapplication.model.UserJoinEvent.Example> get_user_join_event(
             @Query("eventId") String eventId,
             @Query("sessionId") String sessionId,
-            @Query("pageNumber") String pageNumber,
-            @Query("numberRecord") String numberRecord
+            @Query("pageNumber") int pageNumber
     );
+//    getPaymentInfo
+    @GET("payment_info")
+    Call<com.example.myapplication.model.DetailPayment.Example> get_payment_info(@Query("paymentId") String paymentId);
 
 }

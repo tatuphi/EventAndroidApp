@@ -64,29 +64,4 @@ public class ChoosePayment extends AppCompatActivity {
             }
         });
     }
-//    private void joinEvent(String eventId, String sessionId, String payType){
-//        mApiService.joinEvent(eventId,sessionId,payType).enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                if(response.isSuccessful()){
-//                    if(payType.equals("CREDIT_CARD")){
-//                        startActivity(new Intent(mContext, ListCard.class));
-//                    }
-//                }
-//                else {
-//                    try {
-//                        JSONObject jsonError = new JSONObject(response.errorBody().string());
-//                        Toast.makeText(mContext, jsonError.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
-//                    } catch (Exception e) {
-//                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
-//    }
 }

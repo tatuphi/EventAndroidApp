@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.model.ListEvent.Detail;
 
+import org.ocpsoft.prettytime.format.SimpleTimeFormat;
+
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,13 +40,7 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.MyView>{
     public void onBindViewHolder(TimeAdapter.MyView holder, int position)
     {
         final Detail detailItem = detailSession.get(position);
-
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd\nMMM");
-//        Date today = sessionItem.getDay();
-//        String dateTime = dateFormat.format(today);
-        // Set the text of each item of
-        // Recycler view with the list items
-        holder.txt_timeItem.setText(detailItem.getFrom() + " - " + detailItem.getTo());
+        holder.txt_timeItem.setText(detailItem.getFrom().substring(0,5) + " - " + detailItem.getTo().substring(0,5));
     }
     public int getItemCount()
     {

@@ -113,9 +113,10 @@ public class MainActivity extends AppCompatActivity {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 Toast.makeText(mContext, "Logined", Toast.LENGTH_SHORT).show();
                                 sharedPrefManager.saveSPObjectUser(SharedPrefManager.SP_OBJUSER, jsonRESULTS.getJSONObject("result"));
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_IDUSER,sharedPrefManager.getSPObjectUser().getString("_id") );
                                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_LOGIN, false);
                                 Log.e("debug", "onFailure: sharepreferences > " + sharedPrefManager.getSPLogin() );
-                                Log.e("debug", "onFailure:  > " + sharedPrefManager.getSPObjectUser().getString("fullName"));
+                                Log.e("debug", "onFailure: id is  > " + sharedPrefManager.getSPObjectUser().getString("_id"));
 
                                 startActivity(new Intent(mContext, HomeActivity.class));
                                 finish();
