@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_itemDateSession"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="5dp"/>
     <TextView
         android:id="@+id/txt_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_round"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:layout_margin="10dp"
+        android:layout_centerInParent="true"
+        android:layout_alignBaseline="@+id/img_itemDateSession"
         android:textColor="@color/white"
         android:text=""/>
-</LinearLayout>
+</RelativeLayout>

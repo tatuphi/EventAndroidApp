@@ -25,14 +25,12 @@ import com.example.myapplication.model.ListEvent.Detail;
 import com.example.myapplication.model.ListEvent.Document;
 import com.example.myapplication.model.ListEvent.Session;
 import com.example.myapplication.util.Constants;
-import com.example.myapplication.util.RecyclerItemClickListener;
 import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -65,6 +63,7 @@ public class DetailEvent extends AppCompatActivity {
 //    SupportMapFragment mapFrag;
 //    private GoogleMap mMap;
     Session sessionItem;
+    Event event;
     String eventId, typeTab,statusSession;
     Boolean isCancelSession = false;
 
@@ -110,29 +109,23 @@ public class DetailEvent extends AppCompatActivity {
             public void onResponse(Call<Example> call, Response<Example> response) {
                 if(response.isSuccessful())
                 {
-                    Event event = response.body().getResult().getEvent();
+                    event = response.body().getResult().getEvent();
                     Picasso.get().load(event.getBannerUrl()).into(img_banner);
                     txt_name.setText(event.getName());
                     txt_status.setText(event.getStatus());
                     txt_comment.setText(response.body().getResult().getCountComment().toString() + " comments");
 //                    adapter session event
                     final List<Session> dateItems = event.getSession();
-                    rvListDate.setAdapter(new SessionEvent(mContext, dateItems));
-
-//                    default first session `infor`
-                    if( dateItems.size()>0 ){
-                        if(dateItems.get(0).getJoinNumber()!=0){
-                            txt_joinNumber.setText(dateItems.get(0).getJoinNumber().toString() + " people particated");
+//                    rvListDate.setAdapter(new SessionEvent(mContext, dateItems));
+                    getDetailSession(dateItems.get(0));
+                    rvListDate.setAdapter(new SessionEvent(mContext, dateItems, new SessionEvent.MyAdapterListener() {
+                        @Override
+                        public void itemListSessionDateOnClick(View v, int position) {
+                            sessionItem = dateItems.get(position);
+                            getDetailSession(sessionItem);
                         }
-                        if (!dateItems.get(0).getAddress().getLocation().equals(""))
-                        {
-                            txt_address.setText(dateItems.get(0).getAddress().getLocation());
-                        }
-                        rvSchedules.setAdapter(new TimeAdapter(mContext,dateItems.get(0).getDetail()));
-                        rvFiles.setAdapter(new FileAdapter(mContext, dateItems.get(0).getDocuments()));
-                    }
+                    }));
 
-                    //        comment click
                     txt_comment.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -142,26 +135,29 @@ public class DetailEvent extends AppCompatActivity {
                             startActivity(cmtScreen);
                         }
                     });
-//                    onlick item session date
-                    rvListDate.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int position) {
+                }
+            }
+            @Override
+            public void onFailure(Call<Example> call, Throwable t) {
+            }
+        });
+    }
+    private void getDetailSession(Session sessionItem){
 //                            each session
-                            sessionItem = dateItems.get(position);
-                            if (sessionItem.getJoinNumber()!=null){
-                                txt_joinNumber.setText(sessionItem.getJoinNumber().toString() + " people particated");
-                            }
-                            if (sessionItem.getAddress().getLocation()!=null)
-                            {
-                                txt_address.setText(sessionItem.getAddress().getLocation());
-                            }
-                            if (sessionItem.getAddress().getDetailImage()!=null){
-                                roomMap.setVisibility(View.VISIBLE);
-                                Picasso.get().load(sessionItem.getAddress().getDetailImage()).into(roomMap);
-                            }
-                            else{
-                                roomMap.setVisibility(View.GONE);
-                            }
+            if (sessionItem.getJoinNumber()!=null){
+                txt_joinNumber.setText(sessionItem.getJoinNumber().toString() + " people particated");
+            }
+            if (sessionItem.getAddress().getLocation()!=null)
+            {
+                txt_address.setText(sessionItem.getAddress().getLocation());
+            }
+            if (sessionItem.getAddress().getDetailImage()!=null){
+                roomMap.setVisibility(View.VISIBLE);
+                Picasso.get().load(sessionItem.getAddress().getDetailImage()).into(roomMap);
+            }
+            else{
+                roomMap.setVisibility(View.GONE);
+            }
 //                            if (sessionItem.getAddress().getMap().getLat()==null || sessionItem.getAddress().getMap().getLng()==null){
 //                                mapHere.setVisibility(View.GONE);
 //                            }
@@ -172,128 +168,119 @@ public class DetailEvent extends AppCompatActivity {
 //                                mapIntent.putExtra(Constants.KEY_LNG, sessionItem.getAddress().getMap().getLng());
 //                                startActivity(mapIntent);
 //                            }
-                            List<Detail> detailItems = sessionItem.getDetail();
-                            rvSchedules.setAdapter(new TimeAdapter(mContext,detailItems));
-                            List<Document> documentItems = sessionItem.getDocuments();
-                            rvFiles.setAdapter(new FileAdapter(mContext, documentItems));
+            List<Detail> detailItems = sessionItem.getDetail();
+            rvSchedules.setAdapter(new TimeAdapter(mContext,detailItems));
+            List<Document> documentItems = sessionItem.getDocuments();
+            rvFiles.setAdapter(new FileAdapter(mContext, documentItems));
 
-                            String statusEvent = event.getStatus();
+            String statusEvent = event.getStatus();
 //                            fields in a session
-                            String sessionId = sessionItem.getIdSession();
+            String sessionId = sessionItem.getIdSession();
 
-//                            arrSessionIds = new ArrayList<String>();
-//                            arrSessionIds.add(sessionId);
-                            if (sessionItem.getStatus()==null)
-                            {
-                                statusSession = "CANJOIN";
-                            }
-                            else
-                            {
-                                statusSession = sessionItem.getStatus();
-                            }
-                            if (sessionItem.getIsCancel()==null)
-                            {
-                                statusSession = "CANJOIN";
-                            }
-                            else
-                            {
-                                if (sessionItem.getIsCancel())
-                                {
-                                    isCancelSession = true;
-                                }
-                                else {
-                                    isCancelSession =false;
-                                }
-                            }
+            if (sessionItem.getStatus()==null)
+            {
+                statusSession = "CANJOIN";
+            }
+            else
+            {
+                statusSession = sessionItem.getStatus();
+            }
+            if (sessionItem.getIsCancel()==null)
+            {
+                statusSession = "CANJOIN";
+            }
+            else
+            {
+                if (sessionItem.getIsCancel())
+                {
+                    isCancelSession = true;
+                }
+                else {
+                    isCancelSession =false;
+                }
+            }
 //                            Boolean isCancelSession = sessionItem.getIsCancel();
-                            String[] arrIdSessions = {sessionId};
+            String[] arrIdSessions = {sessionId};
 //                  handle button apply event && cancel event
-                            btn_applyEvent.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v)
-                                {
-                                    Intent choosePaymentScreen = new Intent(mContext, ChoosePayment.class);
-                                    choosePaymentScreen.putExtra(Constants.KEY_EVENTID, event.getId());
-                                    choosePaymentScreen.putExtra(Constants.KEY_SESSIONID, sessionId);
-                                    startActivity(choosePaymentScreen);
-                                }
-                            });
+            btn_applyEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent choosePaymentScreen = new Intent(mContext, ChoosePayment.class);
+                    choosePaymentScreen.putExtra(Constants.KEY_EVENTID, event.getId());
+                    choosePaymentScreen.putExtra(Constants.KEY_SESSIONID, sessionId);
+                    startActivity(choosePaymentScreen);
+                }
+            });
 
-                            btn_cancelEvent.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
+            btn_cancelEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 //                                    show verify notification to cancel session
-                                    mApiService.cancelEvent(event.getId(), arrIdSessions).enqueue(new Callback<ResponseBody>() {
-                                        @Override
-                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                            if(response.isSuccessful())
-                                            {
-                                                Toast.makeText(mContext,"Canceled", Toast.LENGTH_LONG).show();
-                                            }
-                                            else
-                                            {
-                                                try {
-                                                    JSONObject jsonError = new JSONObject(response.errorBody().string());
-                                                    Toast.makeText(mContext, jsonError.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
-
-                                                } catch (Exception e) {
-                                                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                                        }
-                                    });
-                                }
-                            });
-//                            condition to set visible button
-                            if (typeTab.equals("RECENT"))
+                    mApiService.cancelEvent(event.getId(), arrIdSessions).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if(response.isSuccessful())
                             {
-
-                                if( isCancelSession || !statusEvent.equals("PUBLIC"))
-                                {
-                                    btn_cancelEvent.setVisibility(View.GONE);
-                                    btn_applyEvent.setVisibility(View.GONE);
-                                }
-                                else if(statusSession.equals("JOINED")){
-                                    btn_cancelEvent.setVisibility(View.VISIBLE);
-                                    btn_applyEvent.setVisibility(View.GONE);
-
-                                }
-                                else {
-                                    btn_applyEvent.setVisibility(View.VISIBLE);
-                                    btn_cancelEvent.setVisibility(View.GONE);
-                                }
+                                Toast.makeText(mContext,"Canceled", Toast.LENGTH_LONG).show();
                             }
-                            else {
-                                // not visible button
-                                btn_cancelEvent.setVisibility(View.GONE);
-                                btn_applyEvent.setVisibility(View.GONE);
-                                if(typeTab.equals("SELF"))
-                                {
-                                    btn_returnListUser.setVisibility(View.VISIBLE);
-                                    btn_returnListUser.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent(mContext, ListApplyUser.class);
-                                            intent.putExtra(Constants.KEY_SESSIONID, sessionItem.getIdSession());
-                                            intent.putExtra(Constants.KEY_EVENTID, eventId);
-                                            startActivity(intent);
-                                        }
-                                    });
+                            else
+                            {
+                                try {
+                                    JSONObject jsonError = new JSONObject(response.errorBody().string());
+                                    Toast.makeText(mContext, jsonError.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
+
+                                } catch (Exception e) {
+                                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         }
-                    }));
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
+                }
+            });
+//                            condition to set visible button
+            if (typeTab.equals("RECENT"))
+            {
+
+                if( isCancelSession || !statusEvent.equals("PUBLIC"))
+                {
+                    btn_cancelEvent.setVisibility(View.GONE);
+                    btn_applyEvent.setVisibility(View.GONE);
+                }
+                else if(statusSession.equals("JOINED")){
+                    btn_cancelEvent.setVisibility(View.VISIBLE);
+                    btn_applyEvent.setVisibility(View.GONE);
+
+                }
+                else {
+                    btn_applyEvent.setVisibility(View.VISIBLE);
+                    btn_cancelEvent.setVisibility(View.GONE);
                 }
             }
-            @Override
-            public void onFailure(Call<Example> call, Throwable t) {
+            else {
+                // not visible button
+                btn_cancelEvent.setVisibility(View.GONE);
+                btn_applyEvent.setVisibility(View.GONE);
+                if(typeTab.equals("SELF"))
+                {
+                    btn_returnListUser.setVisibility(View.VISIBLE);
+                    btn_returnListUser.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(mContext, ListApplyUser.class);
+                            intent.putExtra(Constants.KEY_SESSIONID, sessionItem.getIdSession());
+                            intent.putExtra(Constants.KEY_EVENTID, eventId);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
-        });
+
     }
 
 //    @Override

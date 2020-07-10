@@ -60,25 +60,33 @@
             android:drawablePadding="10dp"
             android:inputType="textEmailAddress"
             android:textColor="@color/white" />
-        <TextView
+        <LinearLayout
+            android:id="@+id/itemBirthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/birthday"
-            android:textColor="@color/white"
-            android:drawableStart="@mipmap/icons_birthday"
-            android:drawablePadding="5dp"/>
+            android:orientation="vertical"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/birthday"
+                android:textColor="@color/white"
+                android:drawableStart="@mipmap/icons_birthday"
+                android:drawablePadding="5dp"/>
 
-        <TextView
-            android:id="@+id/txt_birthday"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:drawablePadding="10dp"
-            android:inputType="date"
-            android:text=""
-            android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/txt_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:drawablePadding="10dp"
+                android:inputType="date"
+                android:text=""
+                android:textColor="@color/white" />
+        </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,62 +106,84 @@
             android:inputType="phone"
             android:text=""
             android:textColor="@color/white" />
-        <TextView
+        <LinearLayout
+            android:id="@+id/itemGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/gender"
-            android:textColor="@color/white"
-            android:drawableStart="@mipmap/icons_gender"
-            android:drawablePadding="5dp"/>
+            android:orientation="vertical"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/gender"
+                android:textColor="@color/white"
+                android:drawableStart="@mipmap/icons_gender"
+                android:drawablePadding="5dp"/>
 
-        <TextView
-            android:id="@+id/txt_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:drawablePadding="10dp"
-            android:textAllCaps="true"
-            android:text=""
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/job"
-            android:textColor="@color/white"
-            android:drawableStart="@mipmap/icons_job"
-            android:drawablePadding="5dp"/>
+            <TextView
+                android:id="@+id/txt_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:drawablePadding="10dp"
+                android:textAllCaps="true"
+                android:text=""
+                android:textColor="@color/white" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/txt_job"
+        <LinearLayout
+            android:id="@+id/itemJob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:drawablePadding="10dp"
-            android:text=""
-            android:textColor="@color/white" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/description"
-            android:textColor="@color/white"
-            android:drawableStart="@mipmap/icons_note"
-            android:drawablePadding="5dp"/>
+            android:orientation="vertical"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/job"
+                android:textColor="@color/white"
+                android:drawableStart="@mipmap/icons_job"
+                android:drawablePadding="5dp"/>
 
-        <TextView
-            android:id="@+id/txt_description"
+            <TextView
+                android:id="@+id/txt_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
+                android:drawablePadding="10dp"
+                android:text=""
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/itemDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:drawablePadding="10dp"
-            android:text=""
-            android:textColor="@color/white" />
+            android:orientation="vertical"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:text="@string/description"
+                android:textColor="@color/white"
+                android:drawableStart="@mipmap/icons_note"
+                android:drawablePadding="5dp"/>
 
+            <TextView
+                android:id="@+id/txt_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:drawablePadding="10dp"
+                android:text=""
+                android:textColor="@color/white" />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

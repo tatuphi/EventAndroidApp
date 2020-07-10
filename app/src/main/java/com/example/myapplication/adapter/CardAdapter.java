@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,8 +29,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyView> {
     Context mContext;
     List<Result> listCard;
     String typeCardUrl;
-
     public MyAdapterListener onClickListener;
+
     public CardAdapter(Context context, List<Result> listVertical, MyAdapterListener listener){
         this.mContext = context;
         this.listCard = listVertical;
@@ -72,7 +73,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyView> {
         @BindView(R.id.txt_numberCard) TextView txt_numberCard;
         @BindView(R.id.txt_expDate) TextView txt_expDate;
         @BindView(R.id.btn_delCard) ImageButton btn_delCard;
-        @BindView(R.id.cardItem) RelativeLayout cardItem;
+        @BindView(R.id.cardItem) LinearLayout cardItem;
 
         public MyView(View view){
             super(view);

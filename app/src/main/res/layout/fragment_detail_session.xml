@@ -14,9 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:drawableLeft="@mipmap/icons_people"
+            android:drawableLeft="@mipmap/icons_white_people"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/white"
             android:textColor="@color/white"
             android:text="0 people particated"
             />
@@ -25,9 +24,8 @@
             android:id="@+id/btn_returnListUser"
             android:layout_width="fill_parent"
             android:layout_height="20dp"
-            android:drawableEnd="@mipmap/icon_return"
+            android:drawableEnd="@mipmap/icons_white_return"
             android:textSize="10sp"
-            android:drawableTint="@color/white"
             android:gravity="right"
            android:visibility="gone" />
     </LinearLayout>
@@ -38,9 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:textColor="@color/white"
-        android:drawableLeft="@mipmap/icons_address"
+        android:drawableLeft="@mipmap/icons_white_address"
         android:drawablePadding="10dp"
-        android:drawableTint="@color/white"
         android:text="Undefined" />
     <TextView
         android:id="@+id/mapHere"
@@ -97,9 +94,8 @@
         android:layout_height="wrap_content"
         android:text="Related files"
         android:textColor="@color/white"
-        android:drawableLeft="@mipmap/icons_file"
-        android:drawablePadding="10dp"
-        android:drawableTint="@color/white" />
+        android:drawableLeft="@mipmap/icons_white_file"
+        android:drawablePadding="10dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

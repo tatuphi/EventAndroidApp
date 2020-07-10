@@ -3,9 +3,9 @@ package com.example.myapplication.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,13 +13,25 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.myapplication.R;
+import com.example.myapplication.util.api.BaseApiService;
+import com.example.myapplication.util.api.UtilsApi;
 import com.google.zxing.Result;
 
+import org.json.JSONObject;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ScanQRCode extends AppCompatActivity {
+    @BindView(R.id.scanner_view) CodeScannerView scannerView;
     private CodeScanner mCodeScanner;
+    String joinUserId, eventId,sessionId;
     Context mContext;
+    BaseApiService mApiService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,16 +39,19 @@ public class ScanQRCode extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mContext = this;
-        CodeScannerView scannerView = findViewById(R.id.scanner_view);
-        mCodeScanner = new CodeScanner(this, scannerView);
+        mApiService = UtilsApi.getAPIService();
+
+//        CodeScannerView scannerView = findViewById(R.id.scanner_view);
+        mCodeScanner = new CodeScanner(mContext, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
-            public void onDecoded(@NonNull final Result result) {
-
+            public void onDecoded(@NonNull Result result) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        joinUserId = result.getText();
                         Toast.makeText(mContext, result.getText(), Toast.LENGTH_SHORT).show();
+//                        verifyEventMember();
                     }
                 });
             }
@@ -58,5 +73,28 @@ public class ScanQRCode extends AppCompatActivity {
     protected void onPause() {
         mCodeScanner.releaseResources();
         super.onPause();
+    }
+    private void verifyEventMember(){
+        mApiService.verifyEventMember(joinUserId,eventId,sessionId).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(mContext, "Valid user", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    try {
+                        JSONObject jsonError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(mContext, jsonError.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 }

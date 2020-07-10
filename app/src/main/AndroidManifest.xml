@@ -19,6 +19,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
+        <activity android:name=".activity.ProfileUser" />
         <activity android:name=".activity.ListApplyUser"
                   android:label="List apply user"/>
         <activity android:name=".activity.DetailPayment"

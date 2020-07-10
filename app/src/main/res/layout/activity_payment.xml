@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/black"
+    android:fitsSystemWindows="true"
     tools:context=".activity.Payment">
     <RelativeLayout
         android:layout_width="wrap_content"

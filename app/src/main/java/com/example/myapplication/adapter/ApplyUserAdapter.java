@@ -24,11 +24,11 @@ public class ApplyUserAdapter extends RecyclerView.Adapter <ApplyUserAdapter.MyV
     List<Result> userJoinEvent ;
     public ApplyAdapteListenner onClickListener;
 
-    public ApplyUserAdapter(Context context, List<Result> verticalList)
+    public ApplyUserAdapter(Context context, List<Result> verticalList,ApplyAdapteListenner listenner )
     {
         this.mContext = context;
         this.userJoinEvent = verticalList;
-
+        this.onClickListener = listenner;
     }
     @Override
     public ApplyUserAdapter.MyView onCreateViewHolder(ViewGroup parent, int viewType)
@@ -42,20 +42,17 @@ public class ApplyUserAdapter extends RecyclerView.Adapter <ApplyUserAdapter.MyV
     public void onBindViewHolder(ApplyUserAdapter.MyView holder, int position)
     {
         final Result applyUserItem = userJoinEvent.get(position);
-        if(getItemCount()>0)
+        // Recycler view with the list items
+        if (!applyUserItem.getFullName().equals(""))
         {
-            // Recycler view with the list items
-            if (!applyUserItem.getFullName().equals(""))
-            {
-                holder.txt_fullname_userApply.setText(applyUserItem.getFullName());
-            }
-            if (!applyUserItem.getAvatar().equals(""))
-            {
-                Picasso.get().load(applyUserItem.getAvatar()).into(holder.img_user_apply);
-            }
-            else {
-                Picasso.get().load("https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png").into(holder.img_user_apply);
-            }
+            holder.txt_fullname_userApply.setText(applyUserItem.getFullName());
+        }
+        if (!applyUserItem.getAvatar().equals(""))
+        {
+            Picasso.get().load(applyUserItem.getAvatar()).into(holder.img_user_apply);
+        }
+        else {
+            Picasso.get().load("https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png").into(holder.img_user_apply);
         }
     }
     public int getItemCount()
@@ -79,9 +76,22 @@ public class ApplyUserAdapter extends RecyclerView.Adapter <ApplyUserAdapter.MyV
                     onClickListener.rejectButtonOnClick(v, getAdapterPosition());
                 }
             });
+            img_user_apply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.getProfileUser(v, getAdapterPosition());
+                }
+            });
+            txt_fullname_userApply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.getProfileUser(v, getAdapterPosition());
+                }
+            });
         }
     }
     public interface ApplyAdapteListenner {
         void rejectButtonOnClick(View v, int position);
+        void getProfileUser(View v, int position);
     }
 }

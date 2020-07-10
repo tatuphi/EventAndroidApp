@@ -11,10 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.model.ListEvent.Detail;
 
-import org.ocpsoft.prettytime.format.SimpleTimeFormat;
-
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.BindView;

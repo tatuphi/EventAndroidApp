@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".activity.AddCard">
     <com.stripe.android.view.CardMultilineWidget
         android:id="@+id/card_multiline_widget"

@@ -1,6 +1,5 @@
 package com.example.myapplication.util.api;
 
-import com.example.myapplication.activity.DetailPayment;
 import com.example.myapplication.model.ApplyEvent;
 import com.example.myapplication.model.BaseResult;
 import com.example.myapplication.model.BaseUser;
@@ -190,5 +189,8 @@ public interface BaseApiService {
 //    getPaymentInfo
     @GET("payment_info")
     Call<com.example.myapplication.model.DetailPayment.Example> get_payment_info(@Query("paymentId") String paymentId);
+//    get apply user profile
+    @GET("user/profile")
+    Call<BaseUser> get_profile_user(@Query("id")String id);
 
 }

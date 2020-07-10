@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/black"
+    android:fitsSystemWindows="true"
     tools:context=".activity.DetailEvent">
     <ScrollView
         android:layout_height="match_parent"
@@ -54,9 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text=""
-        android:drawableLeft="@mipmap/icons_comment"
+        android:drawableLeft="@mipmap/icons_white_comments"
         android:drawablePadding="10dp"
-        android:drawableTint="@color/white"
         android:textColor="@color/white"/>
 
     <View

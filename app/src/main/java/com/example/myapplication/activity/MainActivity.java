@@ -2,7 +2,6 @@ package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
-import com.example.myapplication.util.ProgressDialog;
 import com.example.myapplication.util.SharedPrefManager;
 import com.example.myapplication.util.Validate;
 import com.example.myapplication.util.api.BaseApiService;
@@ -22,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     BaseApiService mApiService;
     SharedPrefManager sharedPrefManager;
     Validate mValidate;
-    ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mApiService = UtilsApi.getAPIService();
         sharedPrefManager = new SharedPrefManager(this);
         mValidate = new Validate();
-        mProgressDialog = new ProgressDialog();
+
 
 
 //        click button
@@ -103,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void login(){
-        mProgressDialog.dismissProgressDialog(mContext);
         mApiService.loginRequest(input_email.getText().toString(), input_password.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -139,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("debug", "onFailure: ERROR > " + t.toString());
-                        mProgressDialog.dismissProgressDialog(mContext);
                     }
                 });
     }

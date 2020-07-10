@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@color/black"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="20dp"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="85dp"
@@ -45,7 +46,7 @@
             android:id="@+id/txt_eventName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/txt_category"
+            android:layout_above="@+id/itemCateTime"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
@@ -54,32 +55,37 @@
             android:maxLines="2"
             android:textSize="30sp"
             android:focusable="true" />
-
-        <TextView
-            android:id="@+id/txt_category"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/itemCateTime"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/txt_price"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
-            android:drawableLeft="@mipmap/icons_qrcode"
-            android:drawablePadding="5dp"
-            android:textColor="@color/white"
-            android:text=""
-            android:maxLines="1" />
+            android:layout_above="@+id/txt_price">
+            <TextView
+                android:id="@+id/txt_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:drawableLeft="@mipmap/icons_qrcode"
+                android:drawablePadding="5dp"
+                android:textColor="@color/white"
+                android:text=""
+                android:maxLines="1" />
 
-        <TextView
-            android:id="@+id/txt_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/txt_price"
-            android:layout_marginLeft="200dp"
-            android:layout_marginBottom="10dp"
-            android:drawableLeft="@drawable/ic_access_time_white_24dp"
-            android:drawablePadding="5dp"
-            android:textColor="@color/white"
-            android:text=""
-            android:maxLines="1" />
+            <TextView
+                android:id="@+id/txt_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:drawableLeft="@drawable/ic_access_time_white_24dp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/white"
+                android:text=""
+                android:maxLines="1" />
+        </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/txt_price"
@@ -88,9 +94,8 @@
             android:layout_above="@+id/txt_address"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
-            android:drawableLeft="@mipmap/icons_pricing"
+            android:drawableLeft="@mipmap/icons_2pricing"
             android:drawablePadding="5dp"
-            android:drawableTint="@color/white"
             android:textColor="@color/white"
             android:text=""
             android:maxLines="1"/>
@@ -102,7 +107,7 @@
             android:layout_alignBottom="@+id/imageView"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
-            android:drawableLeft="@mipmap/icons_address"
+            android:drawableLeft="@mipmap/icons_2address"
             android:drawablePadding="5dp"
             android:drawableTint="@color/white"
             android:maxLines="1"
