@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
         sharedPrefManager = new SharedPrefManager(this);
         mValidate = new Validate();
 
@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(forgetPassword);
             }
         });
-//        if (sharedPrefManager.getSPLogin()==true){
-//            Intent home = new Intent(mContext, HomeActivity.class);
-//            startActivity(home);
-//            finish();
-//        }
+        if (sharedPrefManager.getSPLogin()==true){
+            Intent home = new Intent(mContext, HomeActivity.class);
+            startActivity(home);
+            finish();
+        }
     }
 
     private void login(){
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(mContext, "Logined", Toast.LENGTH_SHORT).show();
                                 sharedPrefManager.saveSPObjectUser(SharedPrefManager.SP_OBJUSER, jsonRESULTS.getJSONObject("result"));
                                 sharedPrefManager.saveSPString(SharedPrefManager.SP_IDUSER,sharedPrefManager.getSPObjectUser().getString("_id") );
-                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_LOGIN, false);
+                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_LOGIN, true);
                                 Log.e("debug", "onFailure: sharepreferences > " + sharedPrefManager.getSPLogin() );
                                 Log.e("debug", "onFailure: id is  > " + sharedPrefManager.getSPObjectUser().getString("_id"));
 

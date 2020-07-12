@@ -55,8 +55,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.view_item_notification.setVisibility(View.GONE);
         }
             title = notificationItem.getTitle();
-            fullname = notificationItem.getUsersSender().getFullName();
-            notiContent = title.replace("{sender}",fullname);
+            if (title.contains("{sender}")){
+                fullname = notificationItem.getUsersSender().getFullName();
+                notiContent = title.replace("{sender}",fullname);
+            }
+            else
+            {
+                notiContent = title;
+            }
+
             type_noti = notificationItem.getType();
             time = p.format(notificationItem.getCreatedAt());
             //        get suitable icon for each notification

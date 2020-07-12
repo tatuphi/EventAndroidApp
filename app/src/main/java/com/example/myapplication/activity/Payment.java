@@ -23,10 +23,15 @@ import com.example.myapplication.util.SharedPrefManager;
 import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,14 +55,49 @@ public class Payment extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
         sharedPrefManager = new SharedPrefManager(this);
 
         rvPayments.setLayoutManager(new LinearLayoutManager(this));
         rvPayments.setItemAnimator(new DefaultItemAnimator());
+        getTotalPayment();
         getPayments();
     }
+    private void getTotalPayment(){
+        mApiService.get_payment_history_total().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    try {
+                        JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                        totalExpenditure = jsonRESULTS.getJSONObject("result").getInt("expTotal");
+                        totalRevenue = jsonRESULTS.getJSONObject("result").getInt("revenueTotal");
+                        txt_amountExpenditure.setText(totalExpenditure + " VND");
+                        txt_amountRevenue.setText(totalRevenue + " VND");
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    try {
+                        JSONObject jsonError = new JSONObject(response.errorBody().string());
+                        Log.e("debug", "onFailure: ERROR 600 > " + jsonError.getJSONObject("error").getString("message") );
+                        Toast.makeText(mContext, jsonError.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
     private void getPayments() {
         mApiService.getPaymentHistory().enqueue(new Callback<Example>() {
             @Override
@@ -66,29 +106,28 @@ public class Payment extends AppCompatActivity {
                 {
                     List<Result> paymentItems = response.body().getResult();
                     myUserId = sharedPrefManager.getSpIduser();
-                    for (int i =0;i<paymentItems.size();i++)
-                    {
-                        if (paymentItems.get(i).getStatus().equals("PAID"))
-                        {
-                            if (paymentItems.get(i).getSessionRefunded().size() == 0)
-                            {
-                                if (paymentItems.get(i).getSender().getId().equals(myUserId)){
-                                    totalExpenditure += paymentItems.get(i).getAmount();
-                                }
-                                else{
-                                    totalRevenue += paymentItems.get(i).getAmount();
-                                }
-                            }
-                            else
-                            {
-                                totalRevenue +=0;
-                                totalExpenditure += 0;
-                            }
-                        }
-                    }
+//                    for (int i =0;i<paymentItems.size();i++)
+//                    {
+//                        if (paymentItems.get(i).getStatus().equals("PAID"))
+//                        {
+//                            if (paymentItems.get(i).getSessionRefunded().size() == 0)
+//                            {
+//                                if (paymentItems.get(i).getSender().getId().equals(myUserId)){
+//                                    totalExpenditure += paymentItems.get(i).getAmount();
+//                                }
+//                                else{
+//                                    totalRevenue += paymentItems.get(i).getAmount();
+//                                }
+//                            }
+//                            else
+//                            {
+//                                totalRevenue +=0;
+//                                totalExpenditure += 0;
+//                            }
+//                        }
+//                    }
                     rvPayments.setAdapter(new PaymentAdapter(mContext, paymentItems,myUserId));
-                    txt_amountExpenditure.setText(totalExpenditure + " VND");
-                    txt_amountRevenue.setText(totalRevenue + " VND");
+
                     rvPayments.addOnItemTouchListener(new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {

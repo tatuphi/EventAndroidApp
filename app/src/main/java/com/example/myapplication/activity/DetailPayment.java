@@ -58,7 +58,7 @@ public class DetailPayment extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
 
         Intent myIntent = getIntent();
         idPayment = myIntent.getStringExtra(Constants.KEY_PAYMENTID);

@@ -45,7 +45,7 @@ public class Notification extends AppCompatActivity implements RecyclerItemTouch
         setContentView( R.layout.activity_notification);
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
         notificationList = new ArrayList<>();
         mAdapter = new NotificationAdapter(mContext, notificationList);
 

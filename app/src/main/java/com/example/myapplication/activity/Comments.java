@@ -54,7 +54,7 @@ public class Comments extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
         mValidate = new Validate();
 
         Intent chatIntent = getIntent();
@@ -101,8 +101,10 @@ public class Comments extends AppCompatActivity {
                     try {
                         JSONObject jsonRESULTS = new JSONObject(response.body().string());
                         input_comment.setText("");
-                        Toast.makeText(mContext, "Commented Successfully", Toast.LENGTH_SHORT).show();
+
+//                        Toast.makeText(mContext, "Commented Successfully", Toast.LENGTH_SHORT).show();
                         getComments();
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

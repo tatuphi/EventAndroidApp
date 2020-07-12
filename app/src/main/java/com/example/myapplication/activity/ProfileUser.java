@@ -62,7 +62,7 @@ public class ProfileUser extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
 
         Intent myIntent = getIntent();
         myUserId = myIntent.getStringExtra(Constants.KEY_USERID);

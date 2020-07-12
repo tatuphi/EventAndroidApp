@@ -17,6 +17,7 @@
             android:drawableLeft="@mipmap/icons_white_people"
             android:drawablePadding="10dp"
             android:textColor="@color/white"
+            android:visibility="visible"
             android:text="0 people particated"
             />
 
@@ -38,6 +39,7 @@
         android:textColor="@color/white"
         android:drawableLeft="@mipmap/icons_white_address"
         android:drawablePadding="10dp"
+        android:visibility="visible"
         android:text="Undefined" />
     <TextView
         android:id="@+id/mapHere"

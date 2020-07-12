@@ -46,7 +46,7 @@ public class ListApplyUser extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
 
         Intent myIntent = getIntent();
         eventId = myIntent.getStringExtra(Constants.KEY_EVENTID);

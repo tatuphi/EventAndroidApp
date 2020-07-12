@@ -16,4 +16,5 @@ public class Constants {
     public static String KEY_LAT = "keyLat";
     public static String KEY_LNG = "keyLng";
     public static String KEY_PAYMENTID = "keyPaymentId";
+    public static String KEY_COOKIES = "keyCookies";
 }

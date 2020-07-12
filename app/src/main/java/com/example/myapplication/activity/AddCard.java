@@ -45,7 +45,7 @@ public class AddCard extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
 
         btn_saveCard.setOnClickListener(new View.OnClickListener() {
             @Override

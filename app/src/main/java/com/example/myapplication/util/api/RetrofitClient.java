@@ -2,8 +2,6 @@ package com.example.myapplication.util.api;
 
 import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,6 +52,7 @@ public class RetrofitClient {
         }
         return retrofit;
     }
+
     private static class SessionCookieJar implements CookieJar {
         private List<Cookie> cookies;
         @Override
@@ -62,7 +61,6 @@ public class RetrofitClient {
             if (url.encodedPath().endsWith("login") || url.encodedPath().endsWith("register")) {
                 this.cookies = new ArrayList<>(cookies);
                 this.cookies.addAll(cookies);
-
                 for(int i=0; i<cookies.size();i++)
                 {
                     Log.e("debug",""+ cookies.get(i));

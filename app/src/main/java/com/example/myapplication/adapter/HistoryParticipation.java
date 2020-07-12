@@ -1,5 +1,7 @@
 package com.example.myapplication.adapter;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,8 @@ import butterknife.ButterKnife;
 
 public class HistoryParticipation extends RecyclerView.Adapter<HistoryParticipation.HistoryParticipationHolder> {
     List<Result> listAllEventResponses;
-    String price,time, time1, address;
+    String price, time1,time2, address;
+    String time = "12:00";
 
     public HistoryParticipation( List<Result> allEventList){
         listAllEventResponses = allEventList;
@@ -64,12 +67,14 @@ public class HistoryParticipation extends RecyclerView.Adapter<HistoryParticipat
              SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd\nMMM");
              Date today1  = listAllEventitem.getSession().get(0).getDay();
              time1 = dateFormat1.format(today1).toString();
-
+             SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
+             time2 = dateFormat2.format(today1);
              address = listAllEventitem.getSession().get(0).getAddress().getLocation();
          }
 
 //        address, price,
 //        banner
+//        holder.imageView.setColorFilter(Color.BLACK);
         Picasso.get().load(listAllEventitem.getBannerUrl()).into(holder.imageView);
 
         holder.txt_dateEvent.setText(time1);
@@ -78,7 +83,7 @@ public class HistoryParticipation extends RecyclerView.Adapter<HistoryParticipat
         holder.txt_address.setText(address);
         holder.txt_price.setText(price);
         holder.txt_category.setText(listAllEventitem.getEventCategory().getName());
-        holder.txt_time.setText(time);
+        holder.txt_time.setText(time );
     }
 
     @Override

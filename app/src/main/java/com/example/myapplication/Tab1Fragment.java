@@ -46,7 +46,7 @@ public class Tab1Fragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tab1, container, false);
 //        layout item date event
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(getActivity());
 //        listAllEventResponses = new ArrayList<>();
         // 1. get a reference to recyclerView
         RecyclerView rvListAll = (RecyclerView) rootView.findViewById(R.id.rvListAll);

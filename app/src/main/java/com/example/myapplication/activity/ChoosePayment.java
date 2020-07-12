@@ -40,7 +40,7 @@ public class ChoosePayment extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
 
         Intent myIntent = getIntent();
         String eventId = myIntent.getStringExtra(Constants.KEY_EVENTID);

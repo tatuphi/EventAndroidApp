@@ -44,7 +44,7 @@ public class Tab3Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tab3 ,container, false);
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(getActivity());
         listAllEventResponses = new ArrayList<>();
         RecyclerView rvListPast = (RecyclerView) rootView.findViewById(R.id.rvListPast);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

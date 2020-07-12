@@ -2,10 +2,13 @@ package com.example.myapplication.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
@@ -13,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Type;
 import java.net.CookieStore;
 import java.net.HttpCookie;
 import java.net.URI;
@@ -34,13 +38,16 @@ public class SharedPrefManager{
     public static final String SP_LOGIN = "spLogin";
     public static final String SP_OBJUSER = "spObjUser";
     public static final String SP_IDUSER = "spIdUser";
+    public static final String SP_COOKIES = "spCookies";
 
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
+    SharedPreferences.Editor memes;
 
     public SharedPrefManager(Context context){
         sp = context.getSharedPreferences(SP_APP, Context.MODE_PRIVATE);
         spEditor = sp.edit();
+        memes = PreferenceManager.getDefaultSharedPreferences(context).edit();
     }
 
     public void saveSPBoolean(String keySP, boolean value){
@@ -72,10 +79,13 @@ public class SharedPrefManager{
     public String getSpIduser(){
         return sp.getString(SP_IDUSER, "");
     }
+
     public void logout(){
         spEditor.clear();
         spEditor.commit();
     }
-
-
+    public void removeCookies(){
+        memes.clear();
+        memes.commit();
+    }
 }

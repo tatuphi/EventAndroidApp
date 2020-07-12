@@ -73,21 +73,29 @@ public class HomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
         sharedPrefManager = new SharedPrefManager(this);
-        adapter = new TabAdapter(getSupportFragmentManager());
-        JSONObject objUser = sharedPrefManager.getSPObjectUser();
 
-        View header = navigationView.getHeaderView(0);
-        fullname = (TextView) header.findViewById(R.id.profile_fullname);
-        circleImageView = (CircleImageView) header.findViewById(R.id.profile_image);
-        try {
-            fullname.setText(objUser.getString("fullName"));
-            Picasso.get().load(sharedPrefManager.getSPObjectUser().getString("avatar")).into(circleImageView);
+        adapter = new TabAdapter(getSupportFragmentManager());
+        if (sharedPrefManager.getSPObjectUser()!=null){
+            JSONObject objUser = sharedPrefManager.getSPObjectUser();
+
+            View header = navigationView.getHeaderView(0);
+            fullname = (TextView) header.findViewById(R.id.profile_fullname);
+            circleImageView = (CircleImageView) header.findViewById(R.id.profile_image);
+            try {
+                if (objUser.getString("fullName")!=null){
+                    fullname.setText(objUser.getString("fullName"));
+                }
+                if (sharedPrefManager.getSPObjectUser().getString("avatar")!=null){
+                    Picasso.get().load(sharedPrefManager.getSPObjectUser().getString("avatar")).into(circleImageView);
+                }
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -235,7 +243,11 @@ public class HomeActivity extends AppCompatActivity {
             public void onResponse(Call<BaseResult> call, Response<BaseResult> response) {
                 if(response.isSuccessful()){
                     sharedPrefManager.logout();
+                    sharedPrefManager.removeCookies();
                     Toast.makeText(mContext, "Logout successfully!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(mContext, MainActivity.class));
+//                    finish();
+//                    startActivity(getIntent());
 //                    startActivity(new Intent(mContext, MainActivity.class));
                 }
                 else

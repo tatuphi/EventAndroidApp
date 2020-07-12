@@ -63,6 +63,7 @@ public class DetailEvent extends AppCompatActivity {
 //    SupportMapFragment mapFrag;
 //    private GoogleMap mMap;
     Session sessionItem;
+    int joinNumber = 0;
     Event event;
     String eventId, typeTab,statusSession;
     Boolean isCancelSession = false;
@@ -81,7 +82,7 @@ public class DetailEvent extends AppCompatActivity {
 
         ButterKnife.bind(this);
         mContext = this;
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(mContext);
 
 
 //        get Intent from tabs
@@ -144,20 +145,34 @@ public class DetailEvent extends AppCompatActivity {
     }
     private void getDetailSession(Session sessionItem){
 //                            each session
-            if (sessionItem.getJoinNumber()!=null){
-                txt_joinNumber.setText(sessionItem.getJoinNumber().toString() + " people particated");
-            }
-            if (sessionItem.getAddress().getLocation()!=null)
-            {
-                txt_address.setText(sessionItem.getAddress().getLocation());
-            }
-            if (sessionItem.getAddress().getDetailImage()!=null){
-                roomMap.setVisibility(View.VISIBLE);
-                Picasso.get().load(sessionItem.getAddress().getDetailImage()).into(roomMap);
+            if (sessionItem.getJoinNumber()==null){
+                txt_joinNumber.setVisibility(View.GONE);
             }
             else{
+                joinNumber = sessionItem.getJoinNumber();
+                txt_joinNumber.setText(sessionItem.getJoinNumber().toString() + " people particated");
+            }
+            if(sessionItem.getAddress()!=null){
+                if (sessionItem.getAddress().getLocation()!=null)
+                {
+                    txt_address.setText(sessionItem.getAddress().getLocation());
+                }
+                else{
+                    txt_address.setVisibility(View.GONE);
+                }
+                if (sessionItem.getAddress().getDetailImage()!=null){
+                    roomMap.setVisibility(View.VISIBLE);
+                    Picasso.get().load(sessionItem.getAddress().getDetailImage()).into(roomMap);
+                }
+                else{
+                    roomMap.setVisibility(View.GONE);
+                }
+            }
+            else {
+                txt_address.setVisibility(View.GONE);
                 roomMap.setVisibility(View.GONE);
             }
+
 //                            if (sessionItem.getAddress().getMap().getLat()==null || sessionItem.getAddress().getMap().getLng()==null){
 //                                mapHere.setVisibility(View.GONE);
 //                            }
@@ -266,7 +281,7 @@ public class DetailEvent extends AppCompatActivity {
                 // not visible button
                 btn_cancelEvent.setVisibility(View.GONE);
                 btn_applyEvent.setVisibility(View.GONE);
-                if(typeTab.equals("SELF"))
+                if(typeTab.equals("SELF") && joinNumber>0 )
                 {
                     btn_returnListUser.setVisibility(View.VISIBLE);
                     btn_returnListUser.setOnClickListener(new View.OnClickListener() {

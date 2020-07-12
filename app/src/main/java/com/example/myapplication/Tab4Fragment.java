@@ -44,7 +44,7 @@ public class Tab4Fragment extends Fragment {
         //        Initial
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tab4, container, false);
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(getActivity());
 
         listSelfEventResponses = new ArrayList<>();
         // 1. get a reference to recyclerView

@@ -192,5 +192,8 @@ public interface BaseApiService {
 //    get apply user profile
     @GET("user/profile")
     Call<BaseUser> get_profile_user(@Query("id")String id);
+//    get payment total
+    @GET("payment_history_total")
+    Call<ResponseBody> get_payment_history_total();
 
 }

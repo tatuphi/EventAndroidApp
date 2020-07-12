@@ -44,7 +44,7 @@ public class Tab2Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tab2, container, false);
-        mApiService = UtilsApi.getAPIService();
+        mApiService = UtilsApi.getAPIService(getActivity());
         listAllEventResponses = new ArrayList<>();
 //        get references
         RecyclerView rvListRecent = (RecyclerView) rootView.findViewById(R.id.rvListRecent);
