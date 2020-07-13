@@ -16,7 +16,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
         <activity android:name=".activity.ProfileUser" />
@@ -78,8 +78,7 @@
             android:label="Notification" />
         <activity
             android:name=".activity.EditProfile"
-            android:icon="@drawable/ic_keyboard_arrow_left_white_24dp"
-            android:label="@string/edit_info" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".activity.ForgetPassword"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -90,8 +89,7 @@
             android:name=".activity.Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".activity.profile"
-            android:label="@string/info" />
+            android:name=".activity.profile" />
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home"

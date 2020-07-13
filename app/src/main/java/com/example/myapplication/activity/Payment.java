@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +42,9 @@ public class Payment extends AppCompatActivity {
     @BindView(R.id.rvPayments) RecyclerView rvPayments;
     @BindView(R.id.txt_amountRevenue) TextView txt_amountRevenue;
     @BindView(R.id.txt_amountExpenditure) TextView txt_amountExpenditure;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
+
     String myUserId;
 //    doanh thu (green)
     int totalRevenue = 0;
@@ -49,19 +54,36 @@ public class Payment extends AppCompatActivity {
     BaseApiService mApiService;
     SharedPrefManager sharedPrefManager;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
+
         ButterKnife.bind(this);
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
         sharedPrefManager = new SharedPrefManager(this);
 
+        toolbar_title.setText("Payment");
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         rvPayments.setLayoutManager(new LinearLayoutManager(this));
         rvPayments.setItemAnimator(new DefaultItemAnimator());
         getTotalPayment();
         getPayments();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
     private void getTotalPayment(){
         mApiService.get_payment_history_total().enqueue(new Callback<ResponseBody>() {

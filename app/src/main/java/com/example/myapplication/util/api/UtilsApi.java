@@ -3,6 +3,7 @@ package com.example.myapplication.util.api;
 import android.content.Context;
 
 public class UtilsApi {
+//    https://event-orgnization.herokuapp.com/api
 //    172.16.3.198:5000
     public static String BASE_URL_API = "https://event-orgnization.herokuapp.com/api/";
     //  Interface BaseApiService

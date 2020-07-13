@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,10 @@ public class DetailEvent extends AppCompatActivity {
     @BindView(R.id.btn_cancelEvent) Button btn_cancelEvent;
     @BindView(R.id.mapHere) TextView mapHere;
     @BindView(R.id.btn_returnListUser) TextView btn_returnListUser;
+
+    @BindView(R.id.btn_back) TextView btn_back;
+    @BindView(R.id.btn_scanQr) TextView btn_scanQr;
+
 //    item in recyclerview
 
 //    SupportMapFragment mapFrag;
@@ -100,6 +105,12 @@ public class DetailEvent extends AppCompatActivity {
 //        adapter list file
         rvFiles.setLayoutManager(new LinearLayoutManager(this));
         rvFiles.setItemAnimator(new DefaultItemAnimator());
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         getDetailEvent();
     }

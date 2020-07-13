@@ -3,12 +3,15 @@ package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -24,6 +27,8 @@ import com.stripe.android.view.CardMultilineWidget;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.ResponseBody;
@@ -33,11 +38,16 @@ import retrofit2.Response;
 
 public class AddCard extends AppCompatActivity {
     @BindView(R.id.card_multiline_widget) CardMultilineWidget mCardMultilineWidget;
-    @BindView(R.id.btn_saveCard) Button btn_saveCard;
+//    @BindView(R.id.btn_saveCard) Button btn_saveCard;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
+    @BindView(R.id.toolbar_right) TextView btn_saveCard;
+
     private Stripe stripe;
     Context mContext;
     BaseApiService mApiService;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +57,28 @@ public class AddCard extends AppCompatActivity {
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
 
+        toolbar_title.setText("Add card");
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+//                startActivity(new Intent(mContext, ListCard.class));
+            }
+        });
+        btn_saveCard.setText("Save");
+        btn_saveCard.setVisibility(View.VISIBLE);
         btn_saveCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveCard();
             }
         });
+
+    }
+    @Override
+    public void onBackPressed() {
+        onBackPressed();
+        finish();
     }
     private void saveCard(){
         Card cardToSave = mCardMultilineWidget.getCard();

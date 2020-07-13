@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +43,9 @@ public class ListCard extends AppCompatActivity {
     String eventId, sessionId, payType;
     @BindView(R.id.btn_addCard) TextView btn_addCard;
     @BindView(R.id.rvCards) RecyclerView rvCards;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
+
     Context mContext;
     BaseApiService mApiService;
 
@@ -50,9 +54,18 @@ public class ListCard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_card);
 
+
         ButterKnife.bind(this);
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
+
+        toolbar_title.setText("List card");
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         Intent myIntent = getIntent();
        eventId = myIntent.getStringExtra(Constants.KEY_EVENTID);
@@ -61,14 +74,29 @@ public class ListCard extends AppCompatActivity {
 
         rvCards.setLayoutManager(new LinearLayoutManager(this));
         rvCards.setItemAnimator(new DefaultItemAnimator());
-
+        getListCard();
         btn_addCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(mContext, AddCard.class));
             }
         });
-        getListCard();
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
     }
     private void getListCard(){
         mApiService.getListCard().enqueue(new Callback<Example>() {

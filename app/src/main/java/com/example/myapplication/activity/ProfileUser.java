@@ -56,6 +56,7 @@ public class ProfileUser extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_profile);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
@@ -70,6 +71,7 @@ public class ProfileUser extends AppCompatActivity {
         getProfile();
         getSupportActionBar().setTitle(myFullname);
     }
+
 
     private void getProfile(){
         mApiService.get_profile_user(myUserId).enqueue(new Callback<BaseUser>() {

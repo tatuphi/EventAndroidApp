@@ -3,6 +3,7 @@ package com.example.myapplication.activity;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,9 @@ public class profile extends AppCompatActivity {
     @BindView(R.id.txt_job) TextView job;
     @BindView(R.id.txt_description) TextView description;
     @BindView(R.id.profile_image) CircleImageView image;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_right) TextView toolbar_right;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
 
     String urlImage;
 
@@ -51,18 +56,40 @@ public class profile extends AppCompatActivity {
     BaseApiService mApiService;
     SharedPrefManager sharedPrefManager;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.icons_back);
+
 
         ButterKnife.bind(this);
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
         sharedPrefManager = new SharedPrefManager(this);
         getProfileFromSharedPreferences();
+        toolbar_title.setText("Profile");
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        toolbar_right.setVisibility(View.VISIBLE);
+        toolbar_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, EditProfile.class));
+            }
+        });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
     public void edit_profile(View v)
     {

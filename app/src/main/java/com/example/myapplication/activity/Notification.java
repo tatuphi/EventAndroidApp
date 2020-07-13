@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -24,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +38,8 @@ import retrofit2.Response;
 
 public class Notification extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
     @BindView(R.id.rvListNotification) RecyclerView rvListNotification;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
     Context mContext;
     BaseApiService mApiService;
     List<Result>  notificationList;
@@ -44,6 +50,15 @@ public class Notification extends AppCompatActivity implements RecyclerItemTouch
         super.onCreate(savedInstanceState);
         setContentView( R.layout.activity_notification);
         ButterKnife.bind(this);
+
+        toolbar_title.setText("Notification");
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, HomeActivity.class));
+            }
+        });
+
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
         notificationList = new ArrayList<>();
@@ -58,6 +73,14 @@ public class Notification extends AppCompatActivity implements RecyclerItemTouch
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rvListNotification);
         getNotification();
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        startActivity(new Intent(mContext, HomeActivity.class));
+        finish();
+    }
+
     private void getNotification(){
         mApiService.getListNotification().enqueue(new Callback<Example>() {
             @Override

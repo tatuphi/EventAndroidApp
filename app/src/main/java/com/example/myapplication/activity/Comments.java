@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +43,8 @@ public class Comments extends AppCompatActivity {
     @BindView(R.id.rvListComment) RecyclerView rvListComment;
     @BindView(R.id.input_comment) EditText input_comment;
     @BindView(R.id.btn_sendComment) ImageButton btn_sendComment;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
 
     String eventName, eventId;
     Context mContext;
@@ -52,6 +56,7 @@ public class Comments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments);
 
+
         ButterKnife.bind(this);
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
@@ -61,7 +66,13 @@ public class Comments extends AppCompatActivity {
         eventName = chatIntent.getStringExtra(Constants.KEY_EVENTNAME);
         eventId = chatIntent.getStringExtra(Constants.KEY_EVENTID);
 
-        getSupportActionBar().setTitle(eventName);
+        toolbar_title.setText(eventName);
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         rvListComment.setLayoutManager(new LinearLayoutManager(this));
         rvListComment.setItemAnimator(new DefaultItemAnimator());
@@ -75,6 +86,12 @@ public class Comments extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
     private void getComments(){
         mApiService.get_list_comment(eventId).enqueue(new Callback<Example>() {

@@ -6,6 +6,10 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     tools:context=".activity.ChoosePayment">
+    <include
+        layout="@layout/custom_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
     <LinearLayout
         android:id="@+id/item_zalopay"
         android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -24,6 +25,7 @@ import com.example.myapplication.util.api.UtilsApi;
 import org.json.JSONObject;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +36,8 @@ import retrofit2.Response;
 
 public class ListApplyUser extends AppCompatActivity {
     @BindView(R.id.rvListApplyUser) RecyclerView rvListApplyUser;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
     String eventId, sessionId;
     Context mContext;
     BaseApiService mApiService;
@@ -48,6 +52,14 @@ public class ListApplyUser extends AppCompatActivity {
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
 
+        toolbar_title.setText("List apply user");
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         Intent myIntent = getIntent();
         eventId = myIntent.getStringExtra(Constants.KEY_EVENTID);
         sessionId = myIntent.getStringExtra(Constants.KEY_SESSIONID);
@@ -57,6 +69,12 @@ public class ListApplyUser extends AppCompatActivity {
 
         getListApplyUser();
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void getListApplyUser(){
         mApiService.get_user_join_event(eventId,sessionId, 1).enqueue(new Callback<Example>() {
             @Override

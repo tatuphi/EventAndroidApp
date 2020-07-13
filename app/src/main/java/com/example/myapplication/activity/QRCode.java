@@ -8,14 +8,18 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.util.Constants;
 import com.example.myapplication.util.SharedPrefManager;
 
 import org.json.JSONException;
+
+import java.util.Objects;
 
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
@@ -24,6 +28,9 @@ import butterknife.ButterKnife;
 
 public class QRCode extends AppCompatActivity {
     @BindView(R.id.imageView) ImageView imageQR;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
+
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
 
@@ -40,6 +47,14 @@ public class QRCode extends AppCompatActivity {
         ButterKnife.bind(this);
         mContext = this;
         sharedPrefManager = new SharedPrefManager(this);
+
+        toolbar_title.setText("Qr code");
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 //        mEmail = sharedPrefManager.getSPEmail();
         try {
@@ -71,5 +86,10 @@ public class QRCode extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

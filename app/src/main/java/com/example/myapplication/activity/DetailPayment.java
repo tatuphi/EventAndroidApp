@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +52,9 @@ public class DetailPayment extends AppCompatActivity {
     @BindView(R.id.txt_statusRefundDetail) TextView txt_statusRefundDetail;
     @BindView(R.id.txt_sessionDayRefundDetail) TextView txt_sessionDayRefundDetail;
 
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +64,25 @@ public class DetailPayment extends AppCompatActivity {
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
 
+        toolbar_title.setText("Detail payment");
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         Intent myIntent = getIntent();
         idPayment = myIntent.getStringExtra(Constants.KEY_PAYMENTID);
         idUser = myIntent.getStringExtra(Constants.KEY_USERID);
         getDetailPayment();
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void getDetailPayment(){
         mApiService.get_payment_info(idPayment).enqueue(new Callback<Example>() {
             @Override

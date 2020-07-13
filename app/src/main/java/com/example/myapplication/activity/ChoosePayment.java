@@ -5,30 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.myapplication.R;
 import com.example.myapplication.util.Constants;
 import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;
 
-import org.json.JSONObject;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ChoosePayment extends AppCompatActivity {
-//    @BindView(R.id.item_zalopay) TextView item_zalopay;
-//    @BindView(R.id.item_masterCard) TextView item_masterCard;
     @BindView(R.id.txt_zalopay) TextView txt_zalopay;
     @BindView(R.id.txt_mastercard) TextView txt_mastercard;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
     Context mContext;
     BaseApiService mApiService;
     String payType = "";
@@ -37,6 +32,7 @@ public class ChoosePayment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_payment);
+
 
         ButterKnife.bind(this);
         mContext = this;
@@ -63,5 +59,19 @@ public class ChoosePayment extends AppCompatActivity {
                 payType = "ZALO_PAY";
             }
         });
+        toolbar_title.setText("Choose payment");
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        finish();
+//    }
 }

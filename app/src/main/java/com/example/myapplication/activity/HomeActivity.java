@@ -168,6 +168,12 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
     @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        finish();
+    }
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
