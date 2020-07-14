@@ -37,16 +37,14 @@ public class ProfileUser extends AppCompatActivity {
     @BindView(R.id.txt_fullName)
     TextView fullname;
     @BindView(R.id.txt_email) TextView email;
-//    @BindView(R.id.txt_birthday) TextView birthday;
     @BindView(R.id.txt_numberPhone) TextView numberphone;
-//    @BindView(R.id.txt_gender) TextView gender;
-//    @BindView(R.id.txt_job) TextView job;
-//    @BindView(R.id.txt_description) TextView description;
     @BindView(R.id.profile_image) CircleImageView image;
     @BindView(R.id.itemBirthday) LinearLayout itemBirthday;
     @BindView(R.id.itemDescription) LinearLayout itemDescription;
     @BindView(R.id.itemJob) LinearLayout itemJob;
     @BindView(R.id.itemGender) LinearLayout itemGender;
+    @BindView(R.id.toolbar_back) TextView toolbar_back;
+    @BindView(R.id.toolbar_title) TextView toolbar_title;
 
     String myUserId, myFullname;
 
@@ -58,8 +56,6 @@ public class ProfileUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
         ButterKnife.bind(this);
         mContext = this;
@@ -69,10 +65,21 @@ public class ProfileUser extends AppCompatActivity {
         myUserId = myIntent.getStringExtra(Constants.KEY_USERID);
 
         getProfile();
-        getSupportActionBar().setTitle(myFullname);
+
+        toolbar_title.setText(myFullname);
+        toolbar_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
     private void getProfile(){
         mApiService.get_profile_user(myUserId).enqueue(new Callback<BaseUser>() {
             @Override
@@ -83,12 +90,6 @@ public class ProfileUser extends AppCompatActivity {
                     myFullname = userInfo.getFullName();
                     fullname.setText(userInfo.getFullName());
                     email.setText(userInfo.getEmail());
-//                    if (userInfo.getBirthday()!=null)
-//                    {
-//                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//                        Date birthDay = userInfo.getBirthday();
-//                        birthday.setText(dateFormat.format(birthDay).toString());
-//                    }
                     itemBirthday.setVisibility(View.GONE);
                     itemDescription.setVisibility(View.GONE);
                     itemGender.setVisibility(View.GONE);
@@ -96,15 +97,6 @@ public class ProfileUser extends AppCompatActivity {
                     if(userInfo.getPhone()!=null){
                         numberphone.setText(userInfo.getPhone());
                     }
-//                    if (userInfo.getDiscription()!=null){
-//                        description.setText(userInfo.getDiscription());
-//                    }
-//                    if (userInfo.getGender()!=null){
-//                        gender.setText(userInfo.getGender());
-//                    }
-//                    if (userInfo.getJob()!=null){
-//                        job.setText(userInfo.getJob());
-//                    }
                     if (userInfo.getAvatar()!=null){
                         Picasso.get().load(userInfo.getAvatar()).into(image);
                     }

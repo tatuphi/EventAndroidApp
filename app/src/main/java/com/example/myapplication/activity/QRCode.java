@@ -3,6 +3,7 @@ package com.example.myapplication.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -30,11 +31,15 @@ public class QRCode extends AppCompatActivity {
     @BindView(R.id.imageView) ImageView imageQR;
     @BindView(R.id.toolbar_back) TextView toolbar_back;
     @BindView(R.id.toolbar_title) TextView toolbar_title;
+    @BindView(R.id.introQr) TextView introQr;
+    @BindView(R.id.eventQr) TextView eventQr;
+
 
     Bitmap bitmap;
     QRGEncoder qrgEncoder;
 
-    String mId;
+    String qrString;
+    String eventName, eventId, sessionId,sessionName;
 
     Context mContext;
     SharedPrefManager sharedPrefManager;
@@ -48,22 +53,23 @@ public class QRCode extends AppCompatActivity {
         mContext = this;
         sharedPrefManager = new SharedPrefManager(this);
 
+        Intent myIntent = getIntent();
+        eventId = myIntent.getStringExtra(Constants.KEY_EVENTID);
+        eventName = myIntent.getStringExtra(Constants.KEY_EVENTNAME);
+        sessionId = myIntent.getStringExtra(Constants.KEY_SESSIONID);
+        sessionName = myIntent.getStringExtra(Constants.KEY_SESSIONNAME);
+
         toolbar_title.setText("Qr code");
+        eventQr.setText(eventName);
+        introQr.setText("The qr code to verify attendances in session "+ sessionName);
         toolbar_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-
-//        mEmail = sharedPrefManager.getSPEmail();
-        try {
-            mId =sharedPrefManager.getSPObjectUser().getString("_id");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        if (mId.length() > 0) {
+        qrString = eventId + sessionId;
+        if (qrString.length() > 0) {
             WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
             Display display = manager.getDefaultDisplay();
             Point point = new Point();
@@ -74,7 +80,7 @@ public class QRCode extends AppCompatActivity {
             smallerDimension = smallerDimension * 3 / 4;
 
             qrgEncoder = new QRGEncoder(
-                    mId, null,
+                    qrString, null,
                     QRGContents.Type.TEXT,
                     smallerDimension);
             qrgEncoder.setColorBlack(Color.BLACK);

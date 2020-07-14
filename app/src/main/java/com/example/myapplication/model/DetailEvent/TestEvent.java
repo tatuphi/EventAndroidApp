@@ -1,17 +1,16 @@
-package com.example.myapplication.model.ListEvent;
+package com.example.myapplication.model.DetailEvent;
 
+import com.example.myapplication.model.ListEvent.EventCategory;
+import com.example.myapplication.model.ListEvent.Session;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Result {
+public class TestEvent {
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("session")
-    @Expose
-    private List<Session> session = null;
     @SerializedName("status")
     @Expose
     private String status;
@@ -33,6 +32,9 @@ public class Result {
     @SerializedName("urlWeb")
     @Expose
     private String urlWeb;
+    @SerializedName("session")
+    @Expose
+    private List<Session> session = null;
     @SerializedName("isSellTicket")
     @Expose
     private Boolean isSellTicket;
@@ -51,21 +53,18 @@ public class Result {
     @SerializedName("eventCategory")
     @Expose
     private EventCategory eventCategory;
-    @SerializedName("user")
-    @Expose
-    private User user;
-    @SerializedName("ticket")
-    @Expose
-    private Ticket ticket;
-//    27/06
+    //    27/06
 //    add new field
     @SerializedName("domain")
     @Expose
     private String domain;
-//    add 15/7
+    //    add new field 07/07
     @SerializedName("isRequire")
     @Expose
     private Boolean isRequire;
+    @SerializedName("isEdit")
+    @Expose
+    private String isEdit;
 
     public String getId() {
         return id;
@@ -73,14 +72,6 @@ public class Result {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public List<Session> getSession() {
-        return session;
-    }
-
-    public void setSession(List<Session> session) {
-        this.session = session;
     }
 
     public String getStatus() {
@@ -139,6 +130,14 @@ public class Result {
         this.urlWeb = urlWeb;
     }
 
+    public List<Session> getSession() {
+        return session;
+    }
+
+    public void setSession(List<Session> session) {
+        this.session = session;
+    }
+
     public Boolean getIsSellTicket() {
         return isSellTicket;
     }
@@ -186,36 +185,28 @@ public class Result {
     public void setEventCategory(EventCategory eventCategory) {
         this.eventCategory = eventCategory;
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
-    }
-
-//    add new field
+    //    add new field
     public String getDomain(){
         return domain;
     }
     public void setDomain(String domain){
         this.domain = domain;
     }
-//    15/7
-public Boolean getIsRequire() {
-    return isRequire;
-}
+    //    add new field
+    public Boolean getIsRequire() {
+        return isRequire;
+    }
 
     public void setIsRequire(Boolean isRequire) {
         this.isRequire = isRequire;
     }
+
+    public String getIsEdit() {
+        return isEdit;
+    }
+
+    public void setIsEdit(String isEdit) {
+        this.isEdit = isEdit;
+    }
+
 }

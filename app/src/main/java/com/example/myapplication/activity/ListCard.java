@@ -93,10 +93,11 @@ public class ListCard extends AppCompatActivity {
         finish();
     }
     @Override
-    public void onRestart()
-    {
-        super.onRestart();
-        finish();
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        getListCard();
+        //Refresh your stuff here
     }
     private void getListCard(){
         mApiService.getListCard().enqueue(new Callback<Example>() {

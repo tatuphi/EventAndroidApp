@@ -7,7 +7,8 @@
         android:id="@+id/img_itemDateSession"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+        android:src="@android:color/darker_gray"/>
     <TextView
         android:id="@+id/txt_date"
         android:layout_width="wrap_content"

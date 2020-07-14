@@ -103,7 +103,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 Picasso.get().load("https://i.ibb.co/jrBG8yw/zalo-pay.png").into(img_cardPayment);
             }
         }
-
     }
 
     class RefundViewHolder extends RecyclerView.ViewHolder {
@@ -133,26 +132,30 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             timeUpdate = p.format(refundDetails.getUpdatedAt());
 
             for(int i=0; i<refundDetails.getEventId().getSession().size();i++){
-                if(sessionId==refundDetails.getEventId().getSession().get(i).getIdSession()){
+                if(sessionId.equals(refundDetails.getEventId().getSession().get(i).getIdSession())){
                     sessionName = refundDetails.getEventId().getSession().get(i).getName();
                 }
             }
             if (refundDetails.getSender().getId().equals(myUserId)){
                 txt_senderName.setText("You");
                 txt_amountPayment.setText("-" + refundDetails.getAmount()+" VND");
+                txt_amountPayment.setTextColor(Color.parseColor("#fa0532"));
                 txt_contentPayment.setText("You " + "paid for " + receiverName +" in session " + sessionName + " of event " + eventName);
                 txt_timePayment.setText(time);
                 txt_contentPaymentRefund.setText(receiverName + " refunded for you" + " in session " + sessionName + " of event " + eventName );
                 txt_amountPaymentRefund.setText("+" + refundDetails.getAmount()+" VND");
+                txt_amountPaymentRefund.setTextColor(Color.parseColor("#08c915"));
                 txt_timePaymentRefund.setText(timeUpdate);
             }
             else {
                 txt_senderName.setText(senderName);
                 txt_amountPayment.setText("+" + refundDetails.getAmount()+" VND");
+                txt_amountPayment.setTextColor(Color.parseColor("#08c915"));
                 txt_contentPayment.setText(senderName + " sent for you in session " + sessionName + " of event " + eventName);
                 txt_timePayment.setText(time);
                 txt_contentPaymentRefund.setText("You refunded for " + senderName + " in session " + sessionName + " of event " + eventName );
                 txt_amountPaymentRefund.setText("-" + refundDetails.getAmount()+" VND");
+                txt_amountPaymentRefund.setTextColor(Color.parseColor("#fa0532"));
                 txt_timePaymentRefund.setText(timeUpdate);
             }
 //            another way

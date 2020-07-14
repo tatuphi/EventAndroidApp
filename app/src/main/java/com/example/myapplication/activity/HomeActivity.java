@@ -144,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
                                 startActivity(new Intent(mContext, Chat.class));
                                 break;
                             case R.id.nav_item_qrCode:
-                                startActivity(new Intent(mContext, QRCode.class));
+                                startActivity(new Intent(mContext, ScanQRCode.class));
                                 break;
                             case R.id.nav_item_creditCard:
                                 startActivity(new Intent(mContext, ListCard.class));
@@ -153,7 +153,7 @@ public class HomeActivity extends AppCompatActivity {
                                 startActivity(new Intent(mContext, Payment.class));
                                 break;
                             case R.id.nav_item_settings:
-                                startActivity(new Intent(mContext, settings.class));
+                                startActivity(new Intent(mContext, MapsActivity.class));
                                 break;
                             case R.id.nav_item_changePassword:
                                 startActivity(new Intent(mContext, ChangePassword.class));
@@ -168,10 +168,11 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
     @Override
-    public void onRestart()
-    {
-        super.onRestart();
-        finish();
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        setupBadge();
+        //Refresh your stuff here
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -252,9 +253,6 @@ public class HomeActivity extends AppCompatActivity {
                     sharedPrefManager.removeCookies();
                     Toast.makeText(mContext, "Logout successfully!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(mContext, MainActivity.class));
-//                    finish();
-//                    startActivity(getIntent());
-//                    startActivity(new Intent(mContext, MainActivity.class));
                 }
                 else
                 {

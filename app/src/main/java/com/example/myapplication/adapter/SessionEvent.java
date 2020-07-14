@@ -1,5 +1,6 @@
 package com.example.myapplication.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -41,17 +42,18 @@ public class SessionEvent extends RecyclerView.Adapter<SessionEvent.MyView> {
         // return itemView
         return new MyView(itemView);
     }
+    @SuppressLint("ResourceType")
     @Override
     public void onBindViewHolder(SessionEvent.MyView holder, int position)
     {
         String blueImage = "https://wallpaperset.com/w/full/f/e/4/98293.jpg";
-        String blackImage = "https://img.freepik.com/free-photo/abstract-surface-textures-white-concrete-stone-wall_74190-8184.jpg?size=626&ext=jpg";
+        String blackImage = "https://wallpaperplay.com/walls/full/0/c/3/85143.jpg";
         final Session sessionItem = listSession.get(position);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd\nMMM");
         Date today = sessionItem.getDay();
         String dateTime = dateFormat.format(today);
         holder.txt_date.setText(dateTime);
-        Picasso.get().load(selected_position == position? blueImage : blackImage).into(holder.img_itemDateSession);
+        Picasso.get().load(selected_position == position? blueImage :  blackImage).into(holder.img_itemDateSession);
     }
     // Override getItemCount which Returns
     // the length of the RecyclerView.

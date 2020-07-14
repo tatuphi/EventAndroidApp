@@ -38,7 +38,7 @@ public class EditProfile extends AppCompatActivity {
         toolbar_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                closeContextMenu();
+                onBackPressed();
 //                startActivity(new Intent(mContext, profile.class));
             }
         });
@@ -50,5 +50,10 @@ public class EditProfile extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

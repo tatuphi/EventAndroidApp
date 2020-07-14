@@ -75,9 +75,10 @@ public class AddCard extends AppCompatActivity {
         });
 
     }
+
     @Override
     public void onBackPressed() {
-        onBackPressed();
+        super.onBackPressed();
         finish();
     }
     private void saveCard(){

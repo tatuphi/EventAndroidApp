@@ -61,10 +61,6 @@ public class profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.icons_back);
-
 
         ButterKnife.bind(this);
         mContext = this;
@@ -90,6 +86,13 @@ public class profile extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+    @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        getProfileFromSharedPreferences();
+        //Refresh your stuff here
     }
     public void edit_profile(View v)
     {
@@ -181,10 +184,6 @@ public class profile extends AppCompatActivity {
             else {
                 Picasso.get().load(urlImage).into(image);
             }
-
-//                    Picasso.get().load(urlImage)
-//                            .placeholder(R.mipmap.avatar).error(R.drawable.ic_launcher_background)
-//                            .into(image);
 
         }
         catch (JSONException | ParseException e) {

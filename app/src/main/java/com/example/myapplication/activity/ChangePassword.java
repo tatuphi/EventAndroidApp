@@ -65,15 +65,15 @@ public class ChangePassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                finish();
             }
         });
     }
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        finish();
-//    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     private void changePassword(){
         mApiService.updatePasswordRequest(oldpassword.getText().toString(), newpassword.getText().toString())
