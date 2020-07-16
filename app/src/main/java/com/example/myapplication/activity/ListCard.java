@@ -184,7 +184,6 @@ public class ListCard extends AppCompatActivity {
                     arrSessionIds.add(sessionId);
                     ApplyEvent applyEvent = new ApplyEvent(payType, eventId, arrSessionIds);
 
-
 //                    String[] arrIdSessions = new String[1];
 //                    arrIdSessions[0] = sessionId;
 

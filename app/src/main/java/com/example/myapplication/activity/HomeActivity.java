@@ -23,10 +23,16 @@ import com.example.myapplication.model.Notification.BadgeNumber;
 import com.example.myapplication.util.SharedPrefManager;
 import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -65,6 +71,9 @@ public class HomeActivity extends AppCompatActivity {
     BaseApiService mApiService;
     SharedPrefManager sharedPrefManager;
 
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +84,11 @@ public class HomeActivity extends AppCompatActivity {
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
         sharedPrefManager = new SharedPrefManager(this);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         adapter = new TabAdapter(getSupportFragmentManager());
         if (sharedPrefManager.getSPObjectUser()!=null){
@@ -249,6 +263,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BaseResult> call, Response<BaseResult> response) {
                 if(response.isSuccessful()){
+                    signOutGoogle();
                     sharedPrefManager.logout();
                     sharedPrefManager.removeCookies();
                     Toast.makeText(mContext, "Logout successfully!", Toast.LENGTH_LONG).show();
@@ -266,11 +281,23 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
 
+
             @Override
             public void onFailure(Call<BaseResult> call, Throwable t) {
 
             }
         });
     }
+
+    private void signOutGoogle() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+    }
+    // [END signOut]
 
 }

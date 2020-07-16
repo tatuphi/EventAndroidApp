@@ -182,7 +182,7 @@ public class profile extends AppCompatActivity {
                 Picasso.get().load("https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png").into(image);
             }
             else {
-                Picasso.get().load(urlImage).into(image);
+                Picasso.get().load(objUser.getString("avatar")).into(image);
             }
 
         }

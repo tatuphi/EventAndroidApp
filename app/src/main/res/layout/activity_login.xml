@@ -76,7 +76,8 @@
         android:buttonTint="@color/white"
         android:text="@string/login_with_google"
         android:textColor="#198CE8"
-        android:focusable="true" />
+        android:focusable="true"
+        android:visibility="visible"/>
 
     <LinearLayout
         android:layout_width="match_parent"

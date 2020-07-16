@@ -56,6 +56,7 @@ public class SharedPrefManager{
     }
 
     public void saveSPObjectUser(String keySP, JSONObject userObject){
+        sp.edit().remove(keySP).apply();
         Gson gson = new Gson();
         String json = gson.toJson(userObject);
         spEditor.putString(keySP, json);

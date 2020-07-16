@@ -47,8 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:ems="10"
-            android:inputType="textEmailAddress" />
+            android:ems="10" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,7 +97,7 @@
         <EditText
             android:id="@+id/input_description"
             android:layout_width="match_parent"
-            android:layout_height="85dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/shapeinput"
             android:inputType="textMultiLine"
             android:padding="15dp"

@@ -1,10 +1,13 @@
 package com.example.myapplication.util.api;
 
+import android.net.Uri;
+
 import com.example.myapplication.model.ApplyEvent;
 import com.example.myapplication.model.BaseResult;
 import com.example.myapplication.model.BaseUser;
 import com.example.myapplication.model.ListEvent.Example;
 import com.example.myapplication.model.Notification.BadgeNumber;
+import com.example.myapplication.model.Profile;
 
 
 import java.util.Date;
@@ -16,6 +19,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 //note: example class in different folder will be different
@@ -33,7 +37,14 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("login-google")
-    Call<ResponseBody> login_googleRequest(@Field("email") String email);
+    Call<ResponseBody> login_googleRequest(     @Field("googleId") String googleId,
+                                                @Field("name") String name,
+                                                @Field("imageUrl") Uri imageUrl,
+                                                @Field("email") String email);
+
+    @POST("login-google ")
+    Call<ResponseBody> login_google ( @Body Profile profile);
+//    googleId, name, imageUrl, email
 
     @FormUrlEncoded
     @POST("requestForgotPassword")
@@ -58,19 +69,9 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("user/updateInfo")
     Call<ResponseBody> updateInfoRequest(   @Field("fullName") String fullName,
-                                            @Field("birthday") Date birthday,
                                             @Field("gender") String gender,
-                                            @Field("job") String job,
                                             @Field("phone") String phone,
-                                            @Field("discription") String discription,
-                                            @Field("avatarUrl") String avatarUrl,
-                                            @Field("orgName") String orgName,
-                                            @Field("orgDes") String orgDes,
-                                            @Field("orgWeb") String orgWeb,
-                                            @Field("orgPhone") String orgPhone,
-                                            @Field("orgEmail") String orgEmail,
-                                            @Field("orgUrl") String orgUrl,
-                                            @Field("address") String address );
+                                            @Field("discription") String discription);
 
 
 //    get method
@@ -141,6 +142,12 @@ public interface BaseApiService {
     Call<ResponseBody> verifyEventMember(@Field("joinUserId") String joinUserId,
                                          @Field("eventId") String eventId,
                                          @Field("sessionId") String sessionId);
+//    verify event member update
+    @FormUrlEncoded
+    @POST ("verifyEventMember")
+    Call<ResponseBody> verifyEventMemberUpdate (    @Field("qrcode") String qrcode,
+                                                    @Field("eventId") String eventId,
+                                                    @Field("sessionId ") String sessionId );
 
 // payment
     @FormUrlEncoded

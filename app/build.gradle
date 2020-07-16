@@ -44,6 +44,14 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
+// google sign in
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
+
+    // Dependencies for the REST API example
+////    implementation 'com.google.api-client:google-api-client:1.30.5'
+//    implementation 'com.google.api-client:google-api-client-android:1.30.5'
+//    implementation 'com.google.apis:google-api-services-people:v1-rev99-1.22.0'
+
 
     // dependency for RecyclerView
     implementation "androidx.recyclerview:recyclerview:1.1.0"
@@ -84,6 +92,7 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
 }

@@ -9,7 +9,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -81,6 +80,7 @@ public class DetailEvent extends AppCompatActivity {
     @BindView(R.id.txt_fullname_userApply_detail) TextView txt_fullname_userApply_detail;
 
     @BindView(R.id.btn_getQrcode) TextView btn_getQrcode;
+    @BindView(R.id.btn_scanQrcode) TextView btn_scanQrcode;
 
 
 //    item in recyclerview
@@ -359,10 +359,12 @@ public class DetailEvent extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String currentDate = sdf.format(date);
         String sessionDate = sdf.format(sessionItem.getDay());
-        isReject = sessionItem.getIsReject();
+        if (sessionItem.getIsReject()!=null){
+            isReject = sessionItem.getIsReject();
+        }
 
         if ( typeTab.equals("RECENT") || (typeTab.equals("ALL") &&
-                Integer.parseInt(sessionDate)<=Integer.parseInt(currentDate)))
+                Integer.parseInt(sessionDate)>=Integer.parseInt(currentDate)))
             {
 //                delete & reject event
                 if( isCancelSession || isReject || !statusEvent.equals("PUBLIC") || joinNumber>=sessionItem.getLimitNumber())
@@ -373,6 +375,17 @@ public class DetailEvent extends AppCompatActivity {
                 else if(statusSession.equals("JOINED")){
                     btn_cancelEvent.setVisibility(View.VISIBLE);
                     btn_applyEvent.setVisibility(View.GONE);
+//                    check time before start event session
+                    btn_scanQrcode.setVisibility(View.VISIBLE);
+                    btn_scanQrcode.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(mContext, ScanQRCode.class);
+                            intent.putExtra(Constants.KEY_EVENTID, eventId);
+                            intent.putExtra(Constants.KEY_SESSIONID, sessionItem.getIdSession());
+                            startActivity(intent);
+                        }
+                    });
 
                 }
                 else {

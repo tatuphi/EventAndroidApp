@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.myapplication.R;
+import com.example.myapplication.util.Constants;
 import com.example.myapplication.util.api.BaseApiService;
 import com.example.myapplication.util.api.UtilsApi;
 import com.google.zxing.Result;
@@ -28,7 +30,7 @@ import retrofit2.Response;
 public class ScanQRCode extends AppCompatActivity {
     @BindView(R.id.scanner_view) CodeScannerView scannerView;
     private CodeScanner mCodeScanner;
-    String joinUserId, eventId,sessionId;
+    String qrcode, eventId,sessionId;
     Context mContext;
     BaseApiService mApiService;
     @Override
@@ -40,6 +42,10 @@ public class ScanQRCode extends AppCompatActivity {
         mContext = this;
         mApiService = UtilsApi.getAPIService(mContext);
 
+        Intent myIntent = getIntent();
+        eventId = myIntent.getStringExtra(Constants.KEY_EVENTID);
+        sessionId = myIntent.getStringExtra(Constants.KEY_SESSIONID);
+
 //        CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(mContext, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -48,9 +54,9 @@ public class ScanQRCode extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        joinUserId = result.getText();
+                        qrcode = result.getText();
                         Toast.makeText(mContext, result.getText(), Toast.LENGTH_SHORT).show();
-//                        verifyEventMember();
+                        verifyEventMember();
                     }
                 });
             }
@@ -74,11 +80,11 @@ public class ScanQRCode extends AppCompatActivity {
         super.onPause();
     }
     private void verifyEventMember(){
-        mApiService.verifyEventMember(joinUserId,eventId,sessionId).enqueue(new Callback<ResponseBody>() {
+        mApiService.verifyEventMemberUpdate(qrcode,eventId,sessionId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(mContext, "Valid user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Verify successfully", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     try {
